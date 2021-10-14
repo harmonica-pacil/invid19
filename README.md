@@ -2,7 +2,7 @@
 
 ## 🌏 Situs Web 🌎
 
-Proyek ini dapat diakses di [invid19.herokuapp.com](http://invid19.herokuapp.com/).
+Proyek ini dapat diakses di [invid19.herokuapp.com](https://invid19.herokuapp.com/).
 
 ## 👨‍💻 Pengembang Aplikasi 👩‍💻
 
