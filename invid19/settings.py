@@ -40,7 +40,7 @@ DEBUG = not PRODUCTION
 
 HEROKU_APP_NAME = os.getenv('HEROKU_APP_NAME', '')
 
-ALLOWED_HOSTS = [f'https://{HEROKU_APP_NAME}.herokuapp.com']
+ALLOWED_HOSTS = [f'{HEROKU_APP_NAME}.herokuapp.com']
 
 if not PRODUCTION:
     ALLOWED_HOSTS += ['.localhost', '127.0.0.1', '[::1]']
@@ -68,6 +68,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# force application to use https for all requests.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
 
 ROOT_URLCONF = 'invid19.urls'
 
