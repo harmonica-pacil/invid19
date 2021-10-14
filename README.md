@@ -37,7 +37,7 @@ Berikut ini adalah daftar modul yang akan diimplementasikan.
 - Berita
   Pada modul berita tersedia halaman yang menampilkan berita-berita terbaru. Berita ini hanya dapat dibuat dan diedit oleh user admin. Bagi mereka yang belum login hanya bisa melihat headline berita.
 - Vaksinasi
-  Pada modul vaksinasi, tersedia halaman berisi informasi vaksinasi, seperti jenis vaksin, tanggal, dan lokasi. Tersedia form untuk membuat informasi vaksinasi yang hanya dapat diakses oleh admin.
+  Pada modul vaksinasi, tersedia halaman berisi informasi vaksinasi, seperti jenis vaksin, tanggal, kuota, jam vaksinasi, dan lokasi. Tersedia form untuk membuat informasi vaksinasi yang hanya dapat diakses oleh admin. Bagi user yang belum login tidak dapat melihat kuota dam jam vaksinasi
 - Data Covid-19
   Pada modul ini, tersedia halaman berisi data Covid-19 di Indonesia. Informasi yang ditampilkan berupa angka kasus positif dan negatif, angka sembuh, angka meninggal, dan lain-lain. Modul ini bertujuan untuk memberikan informasi terkait kondisi Indonesia di masa pandemi ini. Hanya user admin yang dapat menambahkan data dan mengedit data.
 
