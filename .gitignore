@@ -2,11 +2,11 @@
 django-template-heroku-template.*
 
 # Virtual environments
-.env
+# .env
 .venv
-env/
+# env/
 venv/
-ENV/
+# ENV/
 env.bak/
 venv.bak/
 
