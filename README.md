@@ -26,19 +26,19 @@ Informasi yang valid merupakan suatu hal yang krusial dalam melawan COVID-19. Ol
 
 Berikut ini adalah daftar modul yang akan diimplementasikan.
 
-- User
+- User <br>
   Modul User digunakan untuk mengidentifikasi pengguna aplikasi. Pada modul ini nantinya akan dibuat model untuk datanya yang akan berisi nama lengkap, email, password, bio, tanggal lahir, dan foto profil. Selain itu, akan dibuat juga halaman untuk signup, signin, dan halaman profil untuk menampilkan data user yang sudah login.
-- Diskusi
+- Diskusi <br>
   Pada modul diskusi, user yang sudah login dapat melihat daftar dari halaman diskusi yang berisi diskusi yang telah dibuat dan dapat memulai sebuah diskusi. Jika user belum login hanya dapat melihat daftar halaman diskusi yang berisi diskusi yang telah dibuat.
-- Comment/Reply (Berhubungan dengan modul diskusi)
+- Comment/Reply (Berhubungan dengan modul diskusi) <br>
   Pada modul Comment/Reply jika user sudah login user dapat melihat 1 halaman diskusi beserta komentar-komentarnya dan dapat mereply diskusi yang sedang dilihat maupun mereply komentar lain. Jika belum login maka hanya dapat melihat 1 halaman diskusi beserta komentar-komentarnya.
-- Artikel
+- Artikel <br>
   Pada modul artikel, tersedia halaman untuk menampilkan artikel-artikel terkait kesehatan yang bertujuan untuk memberikan informasi dan edukasi kesehatan, terutama terkait Covid-19, kepada user. Daftar artikel hanya dapat dibuat dan diedit oleh user admin.
-- Berita
+- Berita <br>
   Pada modul berita tersedia halaman yang menampilkan berita-berita terbaru. Berita ini hanya dapat dibuat dan diedit oleh user admin. Bagi mereka yang belum login hanya bisa melihat headline berita.
-- Vaksinasi
+- Vaksinasi <br>
   Pada modul vaksinasi, tersedia halaman berisi informasi vaksinasi, seperti jenis vaksin, tanggal, kuota, jam vaksinasi, dan lokasi. Tersedia form untuk membuat informasi vaksinasi yang hanya dapat diakses oleh admin. Bagi user yang belum login tidak dapat melihat kuota dam jam vaksinasi
-- Data Covid-19
+- Data Covid-19 <br>
   Pada modul ini, tersedia halaman berisi data Covid-19 di Indonesia. Informasi yang ditampilkan berupa angka kasus positif dan negatif, angka sembuh, angka meninggal, dan lain-lain. Modul ini bertujuan untuk memberikan informasi terkait kondisi Indonesia di masa pandemi ini. Hanya user admin yang dapat menambahkan data dan mengedit data.
 
 ## 👥 Persona 👥
