@@ -14,7 +14,7 @@ Proyek ini dibuat oleh kelompok A10 yang beranggotakan sebagai berikut.
 - Jason Widodo (2006596415)
 - Muhammad Irham Luthfi (2006473964)
 - Rickyanto Wangsa Mulya (2006597765)
-- MuhammadHaddad (2006596195)
+- Muhammad Haddad (2006596195)
 
 ## 📃 Ringkasan 📃
 
