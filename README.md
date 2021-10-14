@@ -42,6 +42,15 @@ Berikut ini adalah daftar modul yang akan diimplementasikan.
   Pada modul ini, tersedia halaman berisi data Covid-19 di Indonesia. Informasi yang ditampilkan berupa angka kasus positif dan negatif, angka sembuh, angka meninggal, dan lain-lain. Modul ini bertujuan untuk memberikan informasi terkait kondisi Indonesia di masa pandemi ini. Hanya user admin yang dapat menambahkan data dan mengedit data.
 
 ## 👥 Persona 👥
+- Budi (guys tambahin atau ganti aja jg gpp yaa) <br>
+  - Bio: <br> Budi adalah seorang driver berumur 60 tahun yang aktif bekerja di luar rumah, sehingga ia membutuhkan informasi terkini mengenai COVID-19. Budi kurang paham mengenai     teknologi   dan tidak mempunyai media sosial untuk kerap mengikuti berita COVID-19.
+  - Goals: 
+   1. Menjadi one-for-all website yang berisi informasi lengkap mengenai COVID19, mulai dari berita, artikel, diskusi, data covid, hingga vaksinasi. 
+   2. Website yang mudah diakses dan dan user-friendly
+  - Frustations:
+   1. Tidak mempunyai media sosial untuk melihat berita
+   2. Kesulitan harus membuka banyak website yang berbeda untuk mendapatkan informasi
+
 
 - Guest User:
   Hanya bisa melihat konten-konten yang ada pada aplikasinya. User yang belum login tidak bisa mengakses halaman profile serta halaman untuk membuat artikel, berita, diskusi, vaksinasi, dan data covid-19. Bagi user yang belum login, halaman artikel dan berita hanya akan menampilkan list dari headline artikel dan berita yang tersedia.
