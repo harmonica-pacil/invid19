@@ -16,6 +16,8 @@ from pathlib import Path
 import dj_database_url
 import cloudinary
 import cloudinary_storage
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -61,10 +63,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "main",
-    "users.apps.UsersConfig",
     "cloudinary",
     "cloudinary_storage",
+    "main",
+    "users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [
@@ -165,7 +167,7 @@ MEDIA_URL = "/images/media/"
 # This is the directory for storing `collectstatic` results.
 # This shouldn't be included in your Git repository.
 STATIC_ROOT = BASE_DIR / "staticfiles"
-MEDIA_ROOT = BASE_DIR / "static/images/media"
+# MEDIA_ROOT = BASE_DIR / "static/images/media"
 
 # You can use this directory to store project-wide static files.
 STATICFILES_DIRS = [
@@ -180,11 +182,20 @@ for directory in [*STATICFILES_DIRS, STATIC_ROOT]:
 # You can remove this if it causes problems on your setup.
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 # Cloudinary stuff
 CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.getenv("CLOUD_NAME", ""),
-    "API_KEY": os.getenv("CLOUD_API_KEY", ""),
-    "API_SECRET": os.getenv("CLOUD_API_SECRET", ""),
+    "CLOUD_NAME": "da66vxlpb",
+    "API_KEY": "751951535465416",
+    "API_SECRET": "4WaJhXuUNunKTHDs3cWtoCncc0w",
 }
-
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+# cloudinary.config(
+#     cloud_name="da66vxlpb",
+#     api_key="751951535465416",
+#     api_secret="4WaJhXuUNunKTHDs3cWtoCncc0w",
+# )
+# CLOUDINARY_STORAGE = {
+#     "CLOUD_NAME": os.getenv("CLOUD_NAME", ""),
+#     "API_KEY": os.getenv("CLOUD_API_KEY", ""),
+#     "API_SECRET": os.getenv("CLOUD_API_SECRET", ""),
+# }

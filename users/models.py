@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 
 class Profile(models.Model):
@@ -29,12 +30,14 @@ class Profile(models.Model):
         blank=True,
         null=True,
     )
+
     profile_image = models.ImageField(
         upload_to="profiles/",
         blank=True,
         null=True,
-        default="profiles/default-user.jpeg",
+        default="profiles/default-user_pfzkxt",
     )
+    # profile_image = CloudinaryField("image", blank=True, null=True)
 
     def __str__(self):
         return str(self.username)
