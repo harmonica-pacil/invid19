@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import Profile
 
 # Create your views here.
@@ -32,7 +33,7 @@ def loginUser(request):
         try:
             user = User.objects.get(username=username)
         except:
-            print("Username doesn't exist'")
+            messages.error(request, "Username or password is incorrect")
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
