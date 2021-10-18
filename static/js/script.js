@@ -7,6 +7,9 @@ switch (notifyTypeAttr) {
   case 'error':
     notifyType = 'danger';
     break;
+  case 'info':
+    notifyType = 'warning';
+    break;
   default:
     notifyType = 'success';
     break;

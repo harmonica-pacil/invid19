@@ -19,24 +19,29 @@
 </head>
 
 <body>
-  {% include 'navbar.html' %}
+  <div id="loader-container">
+    <div id="loader">Loading...</div>
+  </div>
+  <div id="root">
+    {% include 'navbar.html' %}
 
-  <main>
-    {% if messages %}
-    {% for message in messages %}
+    <main>
+      {% if messages %}
+      {% for message in messages %}
 
-    <div id="notify" notifyType="{{message.tags}}" notifyMessage="{{message}}">
-    </div>
+      <div id="notify" notifyType="{{message.tags}}" notifyMessage="{{message}}">
+      </div>
 
-    {% endfor %}
-    {% endif %}
+      {% endfor %}
+      {% endif %}
 
 
-    <div class="container">
-      {% block content %}
-      {% endblock content %}
-    </div>
-  </main>
+      <div class="container">
+        {% block content %}
+        {% endblock content %}
+      </div>
+    </main>
+  </div>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -50,6 +55,9 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@reliutg/buzz-notify/index.min.js"></script>
   <script src="{% static 'js/script.js' %}"></script>
+
+  {% block js %}
+  {% endblock js %}
 </body>
 </body>
 

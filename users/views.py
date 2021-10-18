@@ -4,7 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Profile
-from .forms import CustomSignupForm
+from .forms import CustomSignupForm, ProfileForm
+from datetime import datetime
+from django.http import HttpResponse
+from django.core import serializers
 
 
 @login_required(login_url="login")
@@ -12,14 +15,31 @@ def profile(request):
     if not request.user.is_authenticated:
         return redirect("login")
 
-    profile = Profile.objects.get(user=request.user)
-    context = {"profile": profile}
-    return render(request, "users/profile.html", context)
+    return render(request, "users/profile.html")
 
 
 @login_required(login_url="login")
 def edit_profile(request):
-    return render(request, "users/edit-profile.html")
+    profile = request.user.profile
+    form = ProfileForm(instance=profile)
+
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profile was updated!")
+            return redirect("profile")
+        else:
+            messages.error(
+                request, "An error has occurred during profile update "
+            )
+
+    context = {
+        "form": form,
+        "profile": profile,
+        "joined": datetime.strftime(profile.created_at, "%d %B %Y"),
+    }
+    return render(request, "users/edit-profile.html", context)
 
 
 def loginUser(request):
@@ -48,7 +68,7 @@ def loginUser(request):
 
 def logoutUser(request):
     logout(request)
-    messages.error(request, "User was logged out!")
+    messages.info(request, "User was logged out!")
     return redirect("login")
 
 
@@ -63,7 +83,8 @@ def signupUser(request):
             user.username = user.username.lower()
             user.save()
             messages.success(request, "User account was created!")
-            return redirect("login")
+            login(request, user)
+            return redirect("edit-profile")
         else:
             messages.error(
                 request, "An error has occurred during registration "
@@ -73,3 +94,13 @@ def signupUser(request):
 
     context = {"form": form}
     return render(request, "users/signup.html", context)
+
+
+def profile_data_json(request):
+    if not request.user.is_authenticated:
+        return redirect("login")
+
+    profile = Profile.objects.get(user=request.user)
+    data = serializers.serialize("json", [profile])
+
+    return HttpResponse(data, content_type="application/json")
