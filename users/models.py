@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
+    ROLES = (
+        ("regularUser", "regularUser"),
+        ("admin", "admin"),
+    )
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(
@@ -19,6 +24,13 @@ class Profile(models.Model):
     bio = models.TextField(null=True, blank=True)
     short_intro = models.TextField(max_length=50, null=True, blank=True)
     address = models.CharField(max_length=200, null=True, blank=True)
+    role = models.CharField(
+        max_length=50,
+        choices=ROLES,
+        default="regularUser",
+        blank=True,
+        null=True,
+    )
     profile_image = models.ImageField(
         upload_to="profiles/",
         blank=True,
