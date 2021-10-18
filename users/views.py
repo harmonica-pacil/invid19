@@ -38,13 +38,15 @@ def loginUser(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, "User was logged in!")
             return redirect("main:home")
         else:
-            print("Username or password is incorrect")
+            messages.error(request, "Username or password is incorrect")
 
     return render(request, "users/login.html")
 
 
 def logoutUser(request):
     logout(request)
+    messages.error(request, "User was logged out!")
     return redirect("login")
