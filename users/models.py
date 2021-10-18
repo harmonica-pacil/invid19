@@ -16,7 +16,7 @@ class Profile(models.Model):
     )
     name = models.CharField(max_length=200, null=True, blank=True)
     email = models.EmailField(
-        max_length=500, null=True, blank=True, unique=True
+        max_length=500, null=True, blank=True
     )
     username = models.CharField(
         max_length=200, null=True, blank=True, unique=True
