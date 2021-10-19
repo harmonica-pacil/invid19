@@ -189,13 +189,9 @@ CLOUDINARY_STORAGE = {
     "API_KEY": "751951535465416",
     "API_SECRET": "4WaJhXuUNunKTHDs3cWtoCncc0w",
 }
-# cloudinary.config(
-#     cloud_name="da66vxlpb",
-#     api_key="751951535465416",
-#     api_secret="4WaJhXuUNunKTHDs3cWtoCncc0w",
-# )
-# CLOUDINARY_STORAGE = {
-#     "CLOUD_NAME": os.getenv("CLOUD_NAME", ""),
-#     "API_KEY": os.getenv("CLOUD_API_KEY", ""),
-#     "API_SECRET": os.getenv("CLOUD_API_SECRET", ""),
-# }
+# vjbkjoozxjdqfncs
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "pebepe.a10@gmail.com"
+EMAIL_HOST_PASSWORD = "vjbkjoozxjdqfncs"
+EMAIL_PORT = 587
