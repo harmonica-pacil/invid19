@@ -190,6 +190,7 @@ CLOUDINARY_STORAGE = {
     "API_SECRET": "4WaJhXuUNunKTHDs3cWtoCncc0w",
 }
 # vjbkjoozxjdqfncs
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = True
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "pebepe.a10@gmail.com"
