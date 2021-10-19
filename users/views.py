@@ -30,9 +30,8 @@ def edit_profile(request):
             messages.success(request, "Profile was updated!")
             return redirect("profile")
         else:
-            messages.error(
-                request, "An error has occurred during profile update "
-            )
+            for msg in form.error_messages:
+                messages.error(request, f"{form.error_messages[msg]}")
 
     context = {
         "form": form,
@@ -43,6 +42,7 @@ def edit_profile(request):
 
 
 def loginUser(request):
+
     if request.user.is_authenticated:
         return redirect("profile")
 
@@ -78,17 +78,26 @@ def signupUser(request):
 
     if request.method == "POST":
         form = CustomSignupForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.username.lower()
-            user.save()
-            messages.success(request, "User account was created!")
-            login(request, user)
-            return redirect("edit-profile")
+        usernameEx = User.objects.filter(
+            username=request.POST["username"]
+        ).exists()
+        emailEx = User.objects.filter(email=request.POST["email"]).exists()
+
+        if usernameEx:
+            messages.error(request, "Username already exists")
+        elif emailEx:
+            messages.error(request, "Email already exists")
         else:
-            messages.error(
-                request, "An error has occurred during registration "
-            )
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.username = user.username.lower()
+                user.save()
+                messages.success(request, "User account was created!")
+                login(request, user)
+                return redirect("edit-profile")
+            else:
+                for msg in form.error_messages:
+                    messages.error(request, f"{form.error_messages[msg]}")
 
     form = CustomSignupForm()
 
@@ -96,10 +105,8 @@ def signupUser(request):
     return render(request, "users/signup.html", context)
 
 
+@login_required(login_url="login")
 def profile_data_json(request):
-    if not request.user.is_authenticated:
-        return redirect("login")
-
     profile = Profile.objects.get(user=request.user)
     data = serializers.serialize("json", [profile])
 
