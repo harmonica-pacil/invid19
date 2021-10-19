@@ -28,7 +28,12 @@ xhttp.onreadystatechange = function () {
     email.innerHTML = res.email;
     bio.innerHTML = res.bio;
     address.innerHTML = res.address;
-    image.src = `https://res.cloudinary.com/da66vxlpb/image/upload/v1/images/media/${res.profile_image}`;
+    // profiles/default-user_pfzkxt
+    if (res.profile_image === 'profiles/default-user_pfzkxt') {
+      image.src = `https://res.cloudinary.com/da66vxlpb/image/upload/v1/images/media/${res.profile_image}`;
+    } else {
+      image.src = `https://res.cloudinary.com/da66vxlpb/image/upload/v1/${res.profile_image}`;
+    }
     image.alt = res.name;
     setTimeout(displayPage, 2500);
   }

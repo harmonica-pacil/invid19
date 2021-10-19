@@ -43,9 +43,15 @@
         <button type="button" class="btn btn-danger">Logout</button>
       </a>
       {% else %}
+      {% if request.path == '/login' %}
+      <a href="{% url 'signup' %}">
+        <button type="button" class="btn btn-success">Signup</button>
+      </a>
+      {% else %}
       <a href="{% url 'login' %}">
         <button type="button" class="btn btn-success">Login</button>
       </a>
+      {% endif %}
       {% endif %}
     </div>
   </div>
