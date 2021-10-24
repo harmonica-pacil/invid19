@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     "cloudinary",
     "cloudinary_storage",
     "main",
+    "diskusi",
     "users.apps.UsersConfig",
 ]
 

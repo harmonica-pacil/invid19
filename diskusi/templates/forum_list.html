@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Forum List</title>
+  </head>
+  <body>
+    <div class = "contain">
+      <H2>Forum</H2>
+      <table class = "tabel">
+        
+        {% if forums %} 
+          {% for forum in forums %}
+            <tr class = "card">
+              <td>{{ forum.title }}</td>
+              <td>{{ forum.description }}</td>
+            </tr>
+          {% endfor %}
+        {% endif %}
+      </table>
+    </div>
+  </body>
+</html>
