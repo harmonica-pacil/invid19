@@ -1,0 +1,43 @@
+#id_text_krisan {
+    width: 100%;
+}
+
+.Krisan-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-Indonesia-card {
+    display: flex;
+    justify-content: center;
+}
+
+.card-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    margin-right: 20px;
+    width: 160px;
+    height: 160px;
+}
+
+.container-Indonesia-text {
+    text-align: center;
+    padding: 20px;
+}
+
+.card-header, .card-text {
+    text-align: center;
+}
+
+.krisan-text {
+    padding-top: 20px;
+}
+
+#id-cari {
+    padding: 20px;
+}
