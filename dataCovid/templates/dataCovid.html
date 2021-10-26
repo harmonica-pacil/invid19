@@ -6,43 +6,46 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
 {% endblock meta %}
 {% block content %}
-<div class = "container-Indonesia">
-    <div class = "container-Indonesia-text">
-        <h1>Kasus Covid-19 di Indonesia</h1>
-    </div>
-    <div class = "container-Indonesia-card">
-        <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-            <div class="card-header">Positif</div>
-            <div class="card-body">
-              <p class="card-text">7753000000</p>
-            </div>
+<div id = "target-ajax-Indo">
+    <div class = "container-Indonesia">
+        <div class = "container-Indonesia-text">
+            <h1>Kasus Covid-19 di Indonesia</h1>
         </div>
-        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-            <div class="card-header">Sembuh</div>
-            <div class="card-body">
-              <p class="card-text">1000</p>
+        <div class = "container-Indonesia-card">
+            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header">Positif</div>
+                <div class="card-body">
+                  <p class="card-text" id = "kasus-positif">7753000000</p>
+                </div>
             </div>
-        </div>
-        <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
-            <div class="card-header">Dirawat</div>
-            <div class="card-body">
-              <p class="card-text">1000</p>
+            <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                <div class="card-header">Sembuh</div>
+                <div class="card-body">
+                  <p class="card-text" id = "kasus-sembuh">1000</p>
+                </div>
             </div>
-        </div>
-        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-            <div class="card-header">Meninggal</div>
-            <div class="card-body">
-              <p class="card-text">1000</p>
+            <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+                <div class="card-header">Dirawat</div>
+                <div class="card-body">
+                  <p class="card-text" id = "kasus-dirawat">1000</p>
+                </div>
+            </div>
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">Meninggal</div>
+                <div class="card-body">
+                  <p class="card-text" id = "kasus-meninggal">1000</p>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+
 <div id="id-cari" style="text-align: center;">
     <h1 id="total-text">Kasus Covid-19 di Tiap Provinsi</h1>
         <input id="search" type="text" class="mt-3" placeholder="Cari provinsi"  style="width: 20vw; font-family: 'Poppins'; text-align: center;">
-        <div id="target-ajax" border=1 style="width: 40%; justify-content: center; font-family: 'Poppins';">
-        </div>
+        <table id="target-ajax" border=1 style="width: 40%; justify-content: center; font-family: 'Poppins';">
+        </table>
 </div>
 
 
@@ -60,4 +63,5 @@
 {% endblock content %}
 {% block js %}
 <script src = "{% static 'js/dataCovid.js' %}"></script>
+
 {% endblock js %}

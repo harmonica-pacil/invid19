@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from dataCovid.forms import KrisanForm
 from dataCovid.models import Krisan
 import json
