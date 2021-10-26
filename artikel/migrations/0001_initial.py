@@ -16,6 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('judulArtikel', models.CharField(max_length=30)),
+                ('desc', models.TextField()),
                 ('tglRilis', models.DateField(auto_now=True)),
                 ('peninjau', models.CharField(max_length=20)),
                 ('isiArtikel', models.TextField()),
