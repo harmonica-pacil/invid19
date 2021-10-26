@@ -1,6 +1,8 @@
 from dataCovid.views import add_krisan, info_provinsi
 from django.urls.conf import path
 
+
+
 urlpatterns = [
 
     path('', add_krisan, name = "data-covid19"),

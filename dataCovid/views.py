@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.http import response
+# from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from dataCovid.forms import KrisanForm
 from dataCovid.models import Krisan
@@ -10,7 +12,7 @@ import requests
 # Create your views here.
 
 
-# @login_required(login_url="login")
+@login_required(login_url="login")
 def add_krisan(request):
     context ={}
   
@@ -22,10 +24,11 @@ def add_krisan(request):
     if form.is_valid():
         # save the form data to model
         form.save()
-  
+        return redirect("/data-covid/")
+    # data = Krisan.objects.all()
+    # context['data'] = data
     context['form']= form
     return render(request, "dataCovid.html", context)
-
 
 def info_provinsi(request):
     lst = []
