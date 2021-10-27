@@ -1,15 +1,13 @@
 $(document).ready(() => {
-    // $.ajax({
-    //     url : "https://api.kawalcorona.com/indonesia/",
-    //     type : "GET",
-    //     dataType :'json',
-    //     success: function (response) {
-    //         $("#kasus-positif").text(response.positif)
-    //         $("#kasus-sembuh").text(response.sembuh)
-    //         $("#kasus-dirawat").text(response.dirawat)
-    //         $("#kasus-meninggal").text(response.meninggal)
-    //     }
-    // })
+    $.ajax({
+        url : "https://covid19.mathdro.id/api/countries/indonesia",
+        success:function(result) {
+            document.getElementById("kasus-positif").textContent = result["confirmed"]["value"].toLocaleString();
+            document.getElementById("kasus-sembuh").textContent = result["recovered"]["value"].toLocaleString();
+            document.getElementById("kasus-meninggal").textContent = result["deaths"]["value"].toLocaleString();
+            console.log(result) ;
+        }
+    })
 
     $("#search").keypress(function(e) {
         if(e.which == 13) {
@@ -28,22 +26,22 @@ $(document).ready(() => {
                                 <div class = "container-Indonesia-text">
                                 </div>
                                 <div class = "container-Indonesia-card">
-                                    <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                                    <div class="card text-white bg-danger mb-3" style="max-width: 18rem;border-radius: 8px;">
                                         <div class="card-header">Positif</div>
                                         <div class="card-body">
-                                        <p class="card-text">${result[i]["Kasus_Posi"]}</p>
+                                        <p class="card-text">${result[i]["Kasus_Posi"].toLocaleString()}</p>
                                         </div>
                                     </div>
-                                    <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                                    <div class="card text-white bg-success mb-3" style="max-width: 18rem;border-radius: 8px;">
                                         <div class="card-header">Sembuh</div>
                                         <div class="card-body">
-                                        <p class="card-text">${result[i]["Kasus_Semb"]}</p>
+                                        <p class="card-text">${result[i]["Kasus_Semb"].toLocaleString()}</p>
                                         </div>
                                     </div>
-                                    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                                    <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;border-radius: 8px;">
                                         <div class="card-header">Meninggal</div>
                                         <div class="card-body">
-                                        <p class="card-text">${result[i]["Kasus_Meni"]}</p>
+                                        <p class="card-text">${result[i]["Kasus_Meni"].toLocaleString()}</p>
                                         </div>
                                     </div>
                                 </div>`

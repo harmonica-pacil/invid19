@@ -1,6 +1,7 @@
 #id_text_krisan {
     width: 1200px;
     margin-bottom: 16px;
+    border-radius: 8px;
 }
 
 .Krisan-form {
@@ -65,5 +66,10 @@
 
 .form-footer{
     margin-bottom: 36px;
+}
+
+body {
+    background-image: url("https://cdn.discordapp.com/attachments/791186052671995917/902870028666408980/image0.jpg");
+    background-size: cover;
 }
 
