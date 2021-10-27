@@ -7,6 +7,7 @@
 
 {% block content %}
 <br>
+<!-- ini judul halaman dan search bar -->
 <table width="100%" style="margin: 0px;">
     <tr>
         <td>
@@ -21,6 +22,7 @@
         </td>
     </tr>  
 </table>
+
 <div class="artikel-list">
     {% for x in posts %}
     <div class="card my-3 post-box" style="width:18rem; max-height: 500px">
@@ -49,6 +51,7 @@
 {% block js %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- ajax load more -->
 <script>
     $(document).ready(function(){
         $("#loadMoreBtn").on('click',function(){
@@ -101,6 +104,7 @@
         });
     });
 </script>
+<!-- ajax search bar -->
 <script>
     const url=window.location.href
     const searchForm = document.getElementById('search-form')
