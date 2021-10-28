@@ -22,9 +22,7 @@ def index_json(request):
     return HttpResponse(data, content_type="application/json")
 
 def index(request):
-    forums = Forum.objects.all().values()
-    
-    response = {'forums' : forums}
+    response = {}
     return render(request, 'forum_list.html', response)
 
 @login_required(login_url="login")
