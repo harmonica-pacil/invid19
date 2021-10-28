@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/artikel-form.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<br>
+<!-- ini judul halaman dan search bar -->
+<table width="100%" style="margin: 0px;">
+    <tr>
+        <td>
+            <h1>Artikel</h1>
+        </td>
+        <td style="float:right;">
+            <form id="search-form" autocomplete="off" class="input-group rounded" style="position: relative;">
+                <input type="text" class="form-control" id="search-input" placeholder="Cari artikel">
+                <div id="result-box" class="results-card not-visible" style="position: absolute; z-index: 20; bottom: -76px; top: 40px;"> 
+                </div>
+            </form>
+        </td>
+    </tr>  
+</table>
+
+<div class="artikel-list">
+    {% for x in posts %}
+    <div class="card my-3 post-box" style="width:18rem; max-height: 500px">
+        <img class="card-img-top" src={{x.thumbnail}} alt="Card image">
+        <header style="padding: 10px 10px">
+            <a href="contents/{{x.pk}}" class="font-title">{{x.judulArtikel}}</a>
+        </header>
+        <div class="card-body" style="padding: 0 10px;"> 
+            <div class="font-content">
+                {{x.isiArtikel|truncatechars:100}}
+            </div>
+        </div>
+        <footer>
+            <small class="text-muted" style="font-size: small; padding: 0 10px;">
+                {{x.tglRilis}}
+            </small>
+        </footer>
+    </div>
+    {% endfor %}  
+</div>
+<p class="text-center">
+    <button class="btn btn-outline-light" id="loadMoreBtn">Selanjutnya</button>
+</p> 
+{% endblock content %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- ajax load more -->
+<script>
+    $(document).ready(function(){
+        $("#loadMoreBtn").on('click',function(){
+            var _currentRes = $(".post-box").length;            
+            $.ajax({
+                url:"{% url 'load-more' %}",
+                type:'post',
+                data:{
+                    'offset':_currentRes,
+                    'csrfmiddlewaretoken':"{{csrf_token}}"
+                },
+                dataType:'json',
+                beforeSend:function(){
+                    $("#loadMoreBtn").addClass('disabled').text('Loading..');
+                },
+                success:function(res){
+                    var _html='';
+                    var json_data=$.parseJSON(res.posts);
+                    var length_str=100;
+                
+                    $.each(json_data,function(index,data){ 
+                        var trimmed = data.fields.isiArtikel.substring(0,Math.min(length_str,data.fields.isiArtikel.length));
+                        _html+='<div class="card my-3 post-box" style="width:18rem; max-height: 500px">\
+                            <img class="card-img-top" src='+data.fields.thumbnail+' alt="Card image">\
+                            <header style="padding: 10px 10px">\
+                                <a href="contents/'+data.pk+'" class="font-title">'+data.fields.judulArtikel+'</a>\
+                            </header>\
+                            <div class="card-body" style="padding: 0px 5px">\
+                                <div class="font-content m-2">\
+                                    '+trimmed+'...\
+                                </div>\
+                            </div>\
+                            <footer>\
+                                <small class="text-muted m-2" style="font-size: small;padding: 0px 5px">\
+                                    '+moment(data.fields.tglRilis).format("MMM. DD, YYYY")+'\
+                                </small>\
+                            </footer>\
+                        </div>';
+                    });
+
+                    $(".artikel-list").append(_html);
+                    var _countTotal =$(".post-box").length;
+                    if(_countTotal==res.totalResult){
+                        $('#loadMoreBtn').remove();
+                    }else{
+                        $("#loadMoreBtn").removeClass('disabled').text('Selanjutnya');
+                    }
+                }
+            });
+        });
+    });
+</script>
+<!-- ajax search bar -->
+<script>
+    const url=window.location.href
+    const searchForm = document.getElementById('search-form')
+    const serachInput = document.getElementById('search-input')
+    const resultBox = document.getElementById('result-box')
+
+    if(typeof document.getElementsByName('csrfmiddlewaretoken')[0] != 'undefined'){
+        const csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value
+    }
+
+    const sendSearchData = (article) => {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'search-article' %}",
+            data: {
+                'csrfmiddlewaretoken': "{{csrf_token}}",
+                'article': article
+            },
+            success: function(res) {
+                console.log(res.data)
+                const data = res.data
+                if(Array.isArray(data)){
+                    resultBox.innerHTML = ""
+                    data.forEach(article=> {
+                        resultBox.innerHTML += '\
+                            <a href="">\
+                                <div class="mt-2 mb-2">\
+                                    <div>\
+                                        <a href="contents/'+article.pk+'" class="font-title-search">'+article.judulArtikel+'</a>\
+                                    </div>\
+                                </div>\
+                            </a>'
+                    });
+                }else{
+                    if (serachInput.value.length>0){
+                        resultBox.innerHTML = '<b>'+data+'</b>'
+                    }else{
+                        resultBox.classList.add('not-visible')
+                    }
+                }
+            }
+        })
+    }
+    serachInput.addEventListener('keyup', e=>{
+        console.log(e.target.value)
+
+        if(resultBox.classList.contains('not-visible')){
+            resultBox.classList.remove('not-visible')
+        }
+        sendSearchData(e.target.value)
+    })
+</script>
+{% endblock js %}
