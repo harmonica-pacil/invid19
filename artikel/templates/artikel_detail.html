@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="article-form">
+    <div class="article_header">
+        <h2>{{contents.judulArtikel}}</h2>
+    </div>
+    <table width="100%" style="margin: 0px;">
+        <tr>
+            <td class="text-muted">Ditinjau oleh: {{contents.peninjau}}</td>
+            <td style="float:right;" class="text-muted">{{contents.tglRilis}}</td>
+        </tr>
+    </table>
+    <div class="col d-flex justify-content-center">
+        <img src="{{contents.thumbnail}}" width="650px">
+    </div>
+    <br>
+    <p style="text-align: justify;">{{contents.isiArtikel}}</p>
+    
+</div>
+{% endblock content %}

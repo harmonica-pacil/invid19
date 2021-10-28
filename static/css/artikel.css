@@ -1,0 +1,20 @@
+.font-title{
+    font-size: 19px;
+    font-weight: bold;
+    font-style: normal;
+}
+.artikel-button{
+    display: flex;
+    justify-content: center;
+}
+.artikel-form{
+    display: flex; 
+    flex-direction: column; 
+    justify-items: center;
+    gap: 23px
+}
+.artikel-list{
+    display: flex;
+    gap: 23px;
+    flex-wrap: wrap;
+}

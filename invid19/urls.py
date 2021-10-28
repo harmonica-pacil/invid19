@@ -33,6 +33,8 @@ urlpatterns = [
     ),
     path("", include("main.urls")),
     path("diskusi/", include(diskusi)),
+    path("artikel/",include("artikel.urls")),
+    path("data-covid/", include("dataCovid.urls")),
 ]
 
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

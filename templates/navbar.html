@@ -16,7 +16,7 @@
           <a class="nav-link" href="#">Berita</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Artikel</a>
+          <a class="nav-link" href="{% url 'indexArticle' %}">Artikel</a>
         </li>
         {% if request.user.is_authenticated %}
         <li class="nav-item">
@@ -26,13 +26,16 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Forum Diskusi</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'data-covid19' %}>Data Covid-19</a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">
             Menu
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Buat Artikel</a></li>
+            <li><a class="dropdown-item" href="{% url 'addArticle' %}">Buat Artikel</a></li>
             <li><a class="dropdown-item" href="#">Buat Berita</a></li>
             {% comment %} <li><a class="dropdown-item" href="#"></a></li> {% endcomment %}
           </ul>

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/artikel-form.css' %}">
+<!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> -->
+{% endblock meta %}
+
+{% block content %}
+<div class="row flex-lg-nowrap text-black mt-4">
+  <div class="col">
+    <div class="row">
+      <div class="col mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="e-profile">
+              <div class="tab-content pt-3;">
+                <div class="tab-pane active">
+                  <form class="form" method="POST" action="">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col">
+                        <div class="row mb-4">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Judul</label>
+                                <br>
+                                {{form.judulArtikel}}
+                             </div>
+                            </div>
+                        </div>
+                    	<div class="row mb-4">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Isi Artikel</label>
+                                <br>
+                    	        {{form.isiArtikel}}
+                             </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Peninjau Artikel</label>
+                                <br>
+                    	        {{form.peninjau}}
+                             </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Thumbnail</label>
+                                <br>
+                    	        {{form.thumbnail}}
+                             </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col d-flex justify-content-start">
+                        <a href="{% url 'indexArticle' %}">
+                          <button class="btn btn-primary" type="button">Kembali</button>
+                        </a>
+                      </div>
+                      <div class="col d-flex justify-content-end">
+                        <button class="btn btn-primary" type="submit">Tambah Artikel</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
