@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block meta %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> 
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+{% endblock meta %} 
+    <style>
+        .btn.btn-primary.mb-2{
+            min-width:100px;
+            position:absolute;
+            bottom:5%;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+            transition-duration: 0.4s;
+        }
+        .card.post-box{
+            border: 2px solid #4242a0;
+        }
+       
+        .card-footer {
+            background: transparent;
+            border-top: 0px;
+        }   
+        .btn.btn-load{
+            background-color: #0B63E3;
+            color: white;
+        }
+
+    </style>
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://cdn.discordapp.com/attachments/891854480679780423/903347224237473842/cropped.jpg" class="d-block w-100" alt="fotosatu">
+      </div>
+      <div class="carousel-item">
+        <img src="https://media.discordapp.net/attachments/891854480679780423/903346278157672508/foto3.jpeg?width=1440&height=480" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://media.discordapp.net/attachments/891854480679780423/903346429978902538/foto3.jpg?width=1440&height=480" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+ </div>
+
+    <div style="padding: 32px 100px">
+        <h1 style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 45px;">Vaksinasi COVID-19</h1>
+        <h3 style="font-family: Arial, Helvetica, sans-serif; font-size: 25px;">Segera daftarkan diri anda untuk menerima vaksinasi demi keselamatan bersama</h3>
+        <hr>
+        <h3 style="font-family: Arial, Helvetica, sans-serif ; font-weight: 350; font-size: 25px;">Lihat daftar vaksinasi COVID-19 terkini </h3>
+        <div style="padding: 25px 90px">
+          <div class = "row wrapper">
+            {% for i in vaksins %}
+           
+            <div class="card post-box" style="width: 18rem; height: 25rem; border-radius:50px; margin: 12px;">
+                <div class="card-body">
+                    
+                  <h5 class="card-text"> {{ i.lokasi }}, {{ i.kota }}, {{ i.provinsi }}</h5>
+                  <h5 class="card-text"> {{ i.jenis_vaksin }}</h5> 
+                  <p class="card-text"> Tanggal: {{ i.tanggal }}</p> 
+                  {% if user.is_authenticated  %}
+                  <p class="card-text"> Jam: {{ i.jam_mulai }} -- {{ i.jam_berakhir }}</p> 
+                  <p class="card-text"> Kode Vaksinasi: {{ i.kode}}</p> 
+                  {% endif %} 
+                  <p class="card-text"> Kuota: {{ i.kuota }}</p> 
+                
+                
+                    <div class="row">
+                        <div class="col d-flex justify-content-space-evenly" style = "padding-left: 17px;">
+                            <form action="add-pendaftar" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" id="kode" name="kode" value={{i.kode}}>
+                                <button id = {{i.kode}} type="submit" class="btn btn-primary mb-2" style = border-radius:10px>Daftar</button>
+                    
+                            </form>
+                        </div>
+                        <div class="col d-flex justify-content-space-evenly">
+                            {% if user.is_authenticated and user.is_superuser %}
+                            <form action="lihat-individu" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" id="kode" name="kode" value={{i.kode}}>
+                                <button type="submit" class="btn btn-primary mb-2" style = border-radius:10px > Lihat </button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                
+                </div>
+                
+                
+            </div>
+            <script>
+                var kuota = '{{ i.kuota }}';
+                if(kuota == 0){
+                    document.getElementById('{{i.kode}}').style.display="none";
+                }
+            
+            </script>
+            
+            {% endfor %}
+          </div>
+          <br>
+          <br>
+          <p class="text-center">
+            <button class="btn btn-load" id="loadmoreBtn">Load More</button>
+          </p>
+        </div>
+        <h3 style="font-family: Arial, Helvetica, sans-serif ; font-weight: 350; font-size: 25px;"> Informasi Kesehatan </h3>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  Efek samping
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><ul>
+                    <li>Nyeri pada lengan, di tempat suntikan</li>
+                    <li>Sakit kepala atau nyeri otot</li>
+                    <li>Nyeri sendi</li>
+                    <li>Menggigil</li>
+                    <li>Mual atau muntah</li>
+                    <li>Rasa lelah</li>
+                    <li>Demam</li>
+                  </ul>  
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                  Keamanan
+                </button>
+              </h2>
+              <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">Vaksin yang digunakan pemerintah dalam pelaksanaan program vaksinasi COVID-19 nasional dipastikan aman. Vaksin yang telah diproduksi massal sudah melewati proses panjang dan memenuhi syarat utama: Aman, Ampuh, Stabil, dan Efisien dari segi biaya.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                  Efektivitas
+                </button>
+              </h2>
+              <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">Evaluasi efektivitas vaksin COVID-19 yang dilakukan Badan Penelitian dan Pengembangan Kesehatan Kemenkes RI, membuktikan bahwa vaksin mampu menurunkan risiko terinfeksi COVID-19, serta mengurangi perawatan dan kematian bagi tenaga kesehatan. Studi ini dilakukan terhadap 71.455 tenaga kesehatan di DKI Jakarta meliputi perawat, bidan, dokter, teknisi, dan tenaga umum lainnya sepanjang periode Januari-Juni 2021.</div>
+              </div>
+            </div>
+          </div>
+        
+    </div>
+    
+    
+{% endblock content %}
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+<script>
+    $(document).ready(function(){
+        $("#loadmoreBtn").on('click',function(){
+            var _currentResult=$(".post-box").length;
+            $.ajax({
+                url:"{% url 'load-more' %}",
+                type:'post',
+                data:{
+                    'offset':_currentResult,
+                    'csrfmiddlewaretoken':"{{csrf_token}}"
+                },
+                dataType:'json',
+                beforeSend:function(){
+                    $("#loadmoreBtn").addClass('disabled').text('Loading..');
+                },
+                success:function(res){
+                    var _html='';
+                    var json_data=$.parseJSON(res.vaksins);
+                    $.each(json_data,function(index,data){
+                        _html+=`<div class="card post-box" style="width: 18rem; height: 25rem; border-radius:50px; margin: 12px;">
+                <div class="card-body">
+                    
+                  <h5 class="card-text"> ${ data.fields.lokasi }, ${ data.fields.kota }, ${ data.fields.provinsi }</h5>
+                  <h5 class="card-text"> ${ data.fields.jenis_vaksin }</h5> 
+                  <p class="card-text"> Tanggal: ${ data.fields.tanggal }</p> 
+                  {% if user.is_authenticated  %}
+                  <p class="card-text"> Jam: ${ data.fields.jam_mulai } -- ${ data.fields.jam_berakhir }</p> 
+                  <p class="card-text"> Kode Vaksinasi: ${ data.fields.kode}</p> 
+                  {% endif %} 
+                  <p class="card-text"> Kuota: ${ data.fields.kuota }</p> 
+                
+                
+                    <div class="row">
+                        <div class="col d-flex justify-content-space-evenly" style = "padding-left: 17px;">
+                            <form action="add-pendaftar" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" id="kode" name="kode" value= ${data.fields.kode}>
+                                <button id = ${data.fields.kode} type="submit" class="btn btn-primary mb-2" style = border-radius:10px>Daftar</button>
+                    
+                            </form>
+                        </div>
+                        <div class="col d-flex justify-content-space-evenly">
+                            {% if user.is_authenticated and user.is_superuser %}
+                            <form action="lihat-individu" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" id="kode" name="kode" value=${data.fields.kode}>
+                                <button type="submit" class="btn btn-primary mb-2" style = border-radius:10px > Lihat </button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                
+                </div>
+                
+                
+            </div>
+            `;
+                    });
+                    $(".wrapper").append(_html);
+                    var _countTotal=$(".post-box").length;
+                    if(_countTotal==res.totalResult){
+                        $("#loadmoreBtn").remove();
+                    }else{
+                        $("#loadmoreBtn").removeClass('disabled').text('Load More');
+                    }
+                }
+            });
+        });
+    });
+</script>   
+{% endblock js %}
