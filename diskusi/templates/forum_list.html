@@ -1,23 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Forum List</title>
-  </head>
-  <body>
-    <div class = "contain">
-      <H2>Forum</H2>
-      <table class = "tabel">
-        
-        {% if forums %} 
-          {% for forum in forums %}
-            <tr class = "card">
-              <td>{{ forum.title }}</td>
-              <td>{{ forum.description }}</td>
-            </tr>
-          {% endfor %}
-        {% endif %}
-      </table>
+
+
+{% extends "base.html"%}
+{% load static %}
+{% load cloudinary %}
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/forum_list.css' %}">
+{% endblock meta %}
+
+{% block content %}
+
+<div class="container-fluid" id="myBody">
+  <p class="h2">Forum Diskusi</p>
+  <div class="vstack gap-2" id="list">
+    <div class="card">
+      <div class="card-body">
+        <p class="h4">Title</p>
+        <div class="user">
+          <div class = "image_user">
+            <img src="https://res.cloudinary.com/da66vxlpb/image/upload/v1/images/media/profiles/default-user_pfzkxt" class="rounded float-start" alt="">
+          </div>
+          <p class="h6 text-muted">nama user - tanggal</p>
+
+        </div>
+      </div>
     </div>
-  </body>
-</html>
+  </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+<script src="{% static 'js/forum_list.js' %}"></script>
+{% endblock js %}
