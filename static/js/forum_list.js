@@ -1,7 +1,6 @@
 $(function (){
 
     var $stack = $('#list');
-    $stack.empty();
 
     $.ajax({
         type: 'GET',
