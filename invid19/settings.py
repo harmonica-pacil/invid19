@@ -159,7 +159,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 MEDIA_URL = "/images/media/"
 
 # This is the directory for storing `collectstatic` results.
