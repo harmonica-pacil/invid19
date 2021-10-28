@@ -68,6 +68,8 @@ INSTALLED_APPS = [
     "main",
     "diskusi",
     "users.apps.UsersConfig",
+    "comment",
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [
