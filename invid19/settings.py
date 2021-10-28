@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     "diskusi",
     "users.apps.UsersConfig",
     "comment",
-    'widget_tweaks'
+    'widget_tweaks',
     "artikel",
     "dataCovid",
 ]
