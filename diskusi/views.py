@@ -6,6 +6,7 @@ from django.http.response import HttpResponse
 from users.models import Profile
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 def index_json(request):
     forums = Forum.objects.all()
@@ -16,7 +17,6 @@ def index_json(request):
         forum.save()
 
     response = {'forums' : forums.values()}
-    print(response)
 
     data = serializers.serialize('json', Forum.objects.all())
     return HttpResponse(data, content_type="application/json")
@@ -35,6 +35,7 @@ def add_forum(request):
         new_forum.creator = Profile.objects.get(user = request.user.id)
         new_forum.creator_username = new_forum.creator.username
         new_forum.creator_image = new_forum.creator.profile_image
+        new_forum.created_at = datetime.now()
 
         new_forum.save()
         return HttpResponseRedirect('../')

@@ -5,4 +5,5 @@ urlpatterns = [
     path('', index, name='index'),
     path('add/', add_forum, name='add'),
     path('json/', index_json, name='json api'),
+    path('<int:id>', index, name='comment'),
 ]
