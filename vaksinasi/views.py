@@ -37,25 +37,18 @@ def add_vaksin(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = VaksinForm()
-
-
     return render(request, 'form_vaksin.html', {'form': form})
 
 @login_required(login_url="login")
 def add_pendaftar(request):
-    # print(request.POST)
-    if(request.user.is_superuser):
-        if request.method == 'POST':
-            form = PendaftarForm(request.POST)
-            if form.is_valid():
-                form.save() 
-                Vaksin.objects.get(kode = form.instance.kode).add_pendaftar()
-                return HttpResponseRedirect('/vaksinasi/lihat-vaksin') 
-        else:
-            form = PendaftarForm()
+    if request.method == 'POST':
+        form = PendaftarForm(request.POST)
+        if form.is_valid():
+            form.save() 
+            Vaksin.objects.get(kode = form.instance.kode).add_pendaftar()
+            return HttpResponseRedirect('/vaksinasi/lihat-vaksin') 
     else:
-        return HttpResponseRedirect('/vaksinasi/lihat-vaksin')
-    
+        form = PendaftarForm()
     return render(request, 'form_daftar.html', {'form': request.POST['kode']})
 
 def load_more(request):
