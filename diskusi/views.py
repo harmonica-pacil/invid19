@@ -6,6 +6,7 @@ from django.http.response import HttpResponse
 from users.models import Profile
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 def index_json(request):
     forums = Forum.objects.all()
@@ -14,13 +15,8 @@ def index_json(request):
         forum.creator_username = forum.creator.username
         forum.creator_image = forum.creator.profile_image
         forum.save()
-        print(forum.creator_username)
-
-    for forum in forums:
-        print(forum.creator_username)
 
     response = {'forums' : forums.values()}
-    print(response)
 
     data = serializers.serialize('json', Forum.objects.all())
     return HttpResponse(data, content_type="application/json")
@@ -28,26 +24,19 @@ def index_json(request):
 def index(request):
     forums = Forum.objects.all().values()
     
-    for i in Forum.objects.all():
-        print(i.creator)
-
     response = {'forums' : forums}
-    print(response)
-    #print(response.Users.id)
     return render(request, 'forum_list.html', response)
 
 @login_required(login_url="login")
 def add_forum(request):
-    #print("halooo")
     form = ForumForm(request.POST)
     if form.is_valid():
         new_forum = form.save(commit=False)
         new_forum.creator = Profile.objects.get(user = request.user.id)
+        new_forum.creator_username = new_forum.creator.username
+        new_forum.creator_image = new_forum.creator.profile_image
+        new_forum.created_at = datetime.now()
 
-        print(new_forum.creator)
-        print(new_forum.created_at)
-        print(new_forum.message)
-        print(new_forum.title)
         new_forum.save()
         return HttpResponseRedirect('../')
 
