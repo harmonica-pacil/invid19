@@ -18,6 +18,9 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Artikel</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'lihat-vaksin' %}">Vaksinasi</a>
+        </li>
         {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'profile' %}">Profile</a>
@@ -34,6 +37,9 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="#">Buat Artikel</a></li>
             <li><a class="dropdown-item" href="#">Buat Berita</a></li>
+            {% if request.user.is_authenticated and user.is_superuser %}
+            <li><a class="dropdown-item" href="{% url 'add-vaksin' %}">Buat Vaksin</a></li>
+            {% endif %}
             {% comment %} <li><a class="dropdown-item" href="#"></a></li> {% endcomment %}
           </ul>
         </li>
