@@ -31,7 +31,8 @@ urlpatterns = [
         name="activate",
     ),
     path("", include("main.urls")),
-    path("artikel/",include("artikel.urls"))
+    path("artikel/",include("artikel.urls")),
+    path("data-covid/", include("dataCovid.urls")),
 ]
 
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

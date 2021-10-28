@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "main",
     "users.apps.UsersConfig",
     "artikel"
+    "dataCovid",
 ]
 
 MIDDLEWARE = [
