@@ -14,7 +14,7 @@ def index(request):
     else:
         vaksins=Vaksin.objects.all()
  
-    paginator=Paginator(vaksins,9)
+    paginator=Paginator(vaksins,6)
     page_number=request.GET.get('page')
     posts_obj=paginator.get_page(page_number)
     return render(request,'index.html',{'vaksins':posts_obj})
