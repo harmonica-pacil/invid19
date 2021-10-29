@@ -1,3 +1,4 @@
+
 from django.http import response
 from django.shortcuts import render,redirect
 
@@ -13,24 +14,32 @@ from django.core import serializers
 
 
 # Create your views here.
-def index(request):
+def index(request, id):
     forums = Forum.objects.all().values()
     form = CommentForm(request.POST or None )
 
-    # for i in Comment.objects.all():
-    #     print(i)
     
-    response = {'forums' : forums}
+    response={}
 
     if request.method == "POST":
         if (form.is_valid):
             add_comment = form.save(commit=False)
-            add_comment.forum = Profile.objects.get(creator = request.user.id)
-
-            return redirect('comment:index')
+            add_comment.forum = Forum.objects.get(pk=id)
+            add_comment.comment_creator =  Profile.objects.get(user = request.user.id)            
+            add_comment.save()
+            
+            # return HttpResponseRedirect('comment:index',request)
+            return HttpResponseRedirect(request.path_info)
     response['form'] = form
-    Comment.creator = Profile.objects.get(user = request.user.id)            
-    # print(response)
+    Comment.forum_creator = Forum.objects.get(pk = id)
+    tes = Comment.forum_creator = Forum.objects.get(pk = id)
+    print("TES FORUM:",tes)
+    Comment.comment_creator = Profile.objects.get(user = request.user.id)            
+    print("TES", Comment.forum_creator,  "comment:",Comment.comment_creator)
+    response['forum'] = Comment.forum_creator
+
+
+
     return render(request,  "comment_list.html", response)
 
 # def json_api(request):
@@ -45,13 +54,14 @@ def json_api(request):
     comments = Comment.objects.all()
 
     for comment in comments:
-        comment.creator_username = comment.creator.username
-        comment.creator_image = comment.creator.profile_image
+        comment.comment_creator_username = comment.comment_creator.username
+        comment.forum_creator_username = comment.forum_creator.creator_username
+        comment.creator_image = comment.comment_creator.profile_image
         comment.save()
-        print(comment.creator_username)
+        print(comment.comment_creator)
 
     for comment in comments:
-        print(comment.creator_username)
+        print(comment.comment_creator_username)
 
     response = {'comments' : comments.values()}
     print(response)

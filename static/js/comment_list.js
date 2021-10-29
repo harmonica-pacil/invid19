@@ -19,8 +19,14 @@ $(function () {
                 }
                 var $a = comment['created_at']
                 
-                view.append('<div class="card"><div class="card-body"><p class="h4">' + comment['message'] + '</p><div class="user"><div class = "image_user"><img src="' + comment['creator_image'] + '" class="rounded float-start" alt=""></div><p class="h6 text-muted">' + comment['creator_username']  + '-' + $a + '</p></div></div></div>');
+                view.append('<div class="card"><div class="card-body"><p class="h4">' + comment['message'] + '</p><div class="user"><div class = "image_user"><img src="' + comment['creator_image'] + '" class="rounded float-start" alt=""></div><p class="h6 text-muted">' + comment['commet_creator_username']  + '-' + $a + '</p></div></div></div>');
             });
         }
     });
 });
+
+// $(document).ready(function() {
+//     $('#submit').click(function(e) {  
+//       alert(1);
+//     });
+// });
