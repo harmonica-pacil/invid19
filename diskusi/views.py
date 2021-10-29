@@ -19,6 +19,7 @@ def index_json(request):
         forum.save()
 
     response = {'forums' : forums.values()}
+    print(response)
 
     data = serializers.serialize('json', Forum.objects.all())
     return HttpResponse(data, content_type="application/json")

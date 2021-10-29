@@ -1,4 +1,5 @@
 
+from datetime import datetime
 from django.http import response
 from django.shortcuts import render,redirect
 
@@ -23,9 +24,12 @@ def index(request, id):
 
     if request.method == "POST":
         if (form.is_valid):
+            print(form.is_valid)
+            print(form.is_valid())
             add_comment = form.save(commit=False)
             add_comment.forum = Forum.objects.get(pk=id)
             add_comment.comment_creator =  Profile.objects.get(user = request.user.id)            
+            add_comment.created_at = datetime.now().strftime("%A, %d %B %Y, %I:%M %p")
             add_comment.save()
             
             # return HttpResponseRedirect('comment:index',request)
@@ -33,7 +37,7 @@ def index(request, id):
     response['form'] = form
     Comment.forum_creator = Forum.objects.get(pk = id)
     tes = Comment.forum_creator = Forum.objects.get(pk = id)
-    print("TES FORUM:",tes)
+    print("TES FORUM:",tes.id)
     Comment.comment_creator = Profile.objects.get(user = request.user.id)            
     print("TES", Comment.forum_creator,  "comment:",Comment.comment_creator)
     response['forum'] = Comment.forum_creator
@@ -52,11 +56,15 @@ def index(request, id):
 
 def json_api(request):
     comments = Comment.objects.all()
+    for i in comments:
+        print(i.forum_creator.id)
+        print(i.comment_creator)
 
     for comment in comments:
         comment.comment_creator_username = comment.comment_creator.username
         comment.forum_creator_username = comment.forum_creator.creator_username
         comment.creator_image = comment.comment_creator.profile_image
+        
         comment.save()
         print(comment.comment_creator)
 
