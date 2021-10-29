@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/artikel-form.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<h1>New Berita</h1>
+<form method="POST" action="">
+  {% csrf_token %}
+  <!-- {{isiform}} -->
+
+  <div class="mb-1">
+    <label for="judulBerita" class="form-label">Judul Berita : </label>
+    <input type="text" name="judulBerita" class="form-control" id="judulBerita" aria-describedby="emailHelp" value="{{judulBerita}}">
+  </div>
+  <div class="mb-1">
+    <label for="penulis" class="form-label">Penulis : </label>
+    <input type="text" name="penulis" class="form-control" id="Penulis" value={{penulis}}>
+  </div>
+  <div class="mb-1">
+    <label for="spoiler" class="form-label">Spoiler : </label>
+    <textarea type="text" name="spoiler" class="form-control" id="spoiler" rows="2" value={{spoiler}}></textarea>
+  </div>
+  <div class="mb-1">
+    <label for="isiBerita" class="form-label ">Isi Berita : </label>
+    <textarea type="text" name="isiBerita" class="form-control" id="isiBerita" rows="6" value="{{siBerita}}"></textarea>
+  </div>
+
+  <!-- Button trigger modal -->
+<br>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Simpan Berita</button>
+
+<!-- Modal -->
+<div class="modal fade" style="color: black;"id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel" style= font-color:black>Are you sure ?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style= font-color:black>
+        Berita yang disimpan tidak dapat diedi atau dihapus !
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+        <button type="Simpan Berita" class="btn btn-primary">Simpan</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>  
+<div class="mb-1">
+  <br>
+  <a href="/berita/lihatberita" class="btn btn-primary">Back</a>
+  </div>
+{% endblock content %}
+

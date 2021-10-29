@@ -28,7 +28,10 @@ def index(request, id):
             print(form.is_valid())
             add_comment = form.save(commit=False)
             add_comment.forum = Forum.objects.get(pk=id)
-            add_comment.comment_creator =  Profile.objects.get(user = request.user.id)            
+
+            add_comment.comment_creator =  Profile.objects.get(user = request.user.id)
+            add_comment.comment_creator_username = add_comment.comment_creator.username
+            add_comment.creator_image = add_comment.comment_creator.profile_image            
             add_comment.created_at = datetime.now().strftime("%A, %d %B %Y, %I:%M %p")
             add_comment.save()
             
@@ -36,6 +39,7 @@ def index(request, id):
             return HttpResponseRedirect(request.path_info)
     response['form'] = form
     Comment.forum_creator = Forum.objects.get(pk = id)
+    
     tes = Comment.forum_creator = Forum.objects.get(pk = id)
     print("TES FORUM:",tes.id)
     Comment.comment_creator = Profile.objects.get(user = request.user.id)            
@@ -60,13 +64,11 @@ def json_api(request):
         print(i.forum_creator.id)
         print(i.comment_creator)
 
-    for comment in comments:
-        comment.comment_creator_username = comment.comment_creator.username
-        comment.forum_creator_username = comment.forum_creator.creator_username
-        comment.creator_image = comment.comment_creator.profile_image
+   
         
-        comment.save()
-        print(comment.comment_creator)
+        
+        # comment.save()
+        # print(comment.comment_creator)
 
     for comment in comments:
         print(comment.comment_creator_username)

@@ -67,6 +67,8 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     "comment",
     'widget_tweaks',
+    "berita",
+    "vaksinasi",
     "artikel",
     "dataCovid",
 ]
