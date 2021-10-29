@@ -1,3 +1,49 @@
+
+
+
+{% extends "base.html"%}
+{% load static %}
+{% load cloudinary %}
+{% block meta %}
+{% endblock meta %}
+
+{% block content %}
+
+
+<div class="d-flex justify-content-end">
+    <div class="container-fluid">
+        <p class="h2" style="padding-top: 40px; text-align: center;">Create Forum</p> 
+    </div>
+    <button type="button" class="btn btn-danger" style="margin-top: 50px;" onclick="back_to_forum()">back</button>
+</div>
+
+<form action="" method="POST"> 
+    {% csrf_token %}
+    <div class="mb-4" style="padding-top: 10px">
+        <label for="title_input" class="form-label">Title</label>
+        {{ form.title }}
+        <div id="emailHelp" class="form-text">Your forum will be seen by everyone.</div>
+    </div>
+    <div class="mb-4">
+        <label for="message_input" class="form-label">Message</label>
+        {{ form.message }}
+    </div>
+    
+    <input class="btn btn-success" style="margin-top: 10px" type="submit" value="Add">
+</form>
+
+{% endblock content %}
+
+{% block js %}
+<script>
+    function back_to_forum(){
+        window.location.href = '../';
+    }
+</script>
+{% endblock js %}
+
+
+{% comment %}
 <!DOCTYPE html>       
 <html lang="en">
     <head>
@@ -12,3 +58,4 @@
         </form>
     </body>
 </html>  
+{% endcomment %}
