@@ -38,7 +38,7 @@
             <li><a class="dropdown-item" href="#">Buat Artikel</a></li>
             <li><a class="dropdown-item" href="#">Buat Berita</a></li>
             {% if request.user.is_authenticated and user.is_superuser %}
-            <li><a class="dropdown-item" href="{% url 'add-vaksin' %}">Buat Vaksin</a></li>
+            <li><a class="dropdown-item" href="{% url 'add-vaksin' %}">Buat Vaksinasi</a></li>
             {% endif %}
             {% comment %} <li><a class="dropdown-item" href="#"></a></li> {% endcomment %}
           </ul>
