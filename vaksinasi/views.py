@@ -51,7 +51,7 @@ def add_pendaftar(request):
         form = PendaftarForm()
     return render(request, 'form_daftar.html', {'form': request.POST['kode']})
 
-def load_more(request):
+def load(request):
     offset=int(request.POST['offset'])
     limit=3
     vaksins=Vaksin.objects.all()[offset:limit+offset]

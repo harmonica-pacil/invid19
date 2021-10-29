@@ -164,7 +164,7 @@
         $("#loadmoreBtn").on('click',function(){
             var _currentResult=$(".post-box").length;
             $.ajax({
-                url:"{% url 'load-more' %}",
+                url:"{% url 'load' %}",
                 type:'post',
                 data:{
                     'offset':_currentResult,
