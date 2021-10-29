@@ -46,3 +46,8 @@
   .deskripsi{
     padding-top: 10px;
   }
+
+  #create_button{
+    margin-top: 17px;
+    margin-bottom: 17px;
+  }

@@ -28,4 +28,8 @@ function reply_click(clicked_id){
     window.location = window.location + clicked_id;
 }
 
+function create_forum(){
+    window.location = window.location + 'add/';
+}
+
 //'<div class="card" id = "' + dict['pk'] + '"><div class="card-body"><p class="h4">' + forum['title'] + '</p><div class="user"><div class="d-flex flex-column"><div class="container"><div class = "image_user"><img src="' + forum['creator_image'] + '" class="rounded float-start" alt=""></div><p class="h6 text-muted">' + forum['creator_username'] + ' - ' + forum['created_at'] + '</p></div><div class="container"><p class="deskripsi">' + forum['title'] + '</p></div></div></div></div></div>'
