@@ -13,7 +13,7 @@
           <a class="nav-link active" aria-current="page" href="{% url 'main:home' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Berita</a>
+          <a class="nav-link" href="/berita/lihatberita">Berita</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'indexArticle' %}">Artikel</a>
@@ -41,7 +41,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="{% url 'addArticle' %}">Buat Artikel</a></li>
             {% if user.is_superuser  %}
-            <li><a class="dropdown-item" href="#">Buat Berita</a></li>
+            <li><a class="dropdown-item" href="/berita/tambahberita">Buat Berita</a></li>
             <li><a class="dropdown-item" href="{% url 'add-vaksin' %}">Buat Vaksinasi</a></li>
             {% endif %}
           </ul>

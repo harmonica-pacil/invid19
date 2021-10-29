@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "cloudinary_storage",
     "main",
     "users.apps.UsersConfig",
+    "berita",
     "vaksinasi",
     "artikel",
     "dataCovid",
