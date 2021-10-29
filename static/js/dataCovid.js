@@ -1,6 +1,5 @@
 $(document).ready(() => {
   $.ajax({
-    // url : "https://covid19.mathdro.id/api/countries/indonesia",
     url: 'https://apicovid19indonesia-v2.vercel.app/api/indonesia',
     success: function (result) {
       document.getElementById('kasus-positif').textContent =
@@ -9,10 +8,6 @@ $(document).ready(() => {
         result['sembuh'].toLocaleString();
       document.getElementById('kasus-meninggal').textContent =
         result['meninggal'].toLocaleString();
-      //   document.getElementById("kasus-positif").textContent = result["confirmed"]["value"].toLocaleString();
-      //   document.getElementById("kasus-sembuh").textContent = result["recovered"]["value"].toLocaleString();
-      //   document.getElementById("kasus-meninggal").textContent = result["deaths"]["value"].toLocaleString();
-      //   console.log(result, 'RESSSSSSS');
     },
   });
 
