@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<br>
+<style>
+  button[type=submit] {
+      color: white;
+      padding: 12px 70px;
+      border: none;
+      margin-top: 30px;
+      margin-left: 30px;
+      border-radius: 7px;
+      cursor: pointer;
+      float: right;
+      background-color: #7289da;
+      
+  }
+  button[type=submit]:hover{
+        background-color: #5365a6;
+  }
+
+</style>
+
+  <h1 style="font-family: Arial, Helvetica, sans-serif ; font-weight: 700; font-size: 45px;">Daftar Vaksin</h1>
+  <form action = "" method = "POST">
+    {% csrf_token %}
+    
+    <div class="mb-1">
+      <label for="kode" class="form-label">Kode</label>
+      <input type="text" name="kode" class="form-control" id="kode" aria-describedby="emailHelp" value="{{form}}">
+    </div>
+    <div class="mb-1">
+      <label for="NIK" class="form-label">NIK</label>
+      <input type="text" name="NIK" class="form-control" id="NIK" value={{NIK}}>
+    </div>
+    <div class="mb-1">
+      <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
+      <input type="text" name="nama_lengkap" class="form-control" id="nama_lengkap" value={{nama_lengkap}}>
+    </div>
+        
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+  <form action="{% url 'lihat-vaksin' %}">
+    <button type="submit" class="btn btn-primary">Back</button>
+  </form>
+
+
+{% endblock content %}

@@ -1,0 +1,75 @@
+#id_text_krisan {
+    width: 1200px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+}
+
+.Krisan-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-Indonesia-card {
+    display: flex;
+    justify-content: center;
+}
+
+.card-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    margin-right: 20px;
+    width: 160px;
+    height: 160px;
+}
+
+.container-Indonesia-text {
+    text-align: center;
+    padding: 20px;
+}
+
+.card-header, .card-text {
+    text-align: center;
+}
+
+.krisan-text {
+    padding-top: 20px;
+}
+
+#id-cari {
+    padding: 20px;
+}
+
+#search{
+    margin-bottom: 20px;
+}
+
+#target-ajax{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.boks-telusuri {
+    margin-bottom: 24px;
+}
+
+.kumpulan-kartu {
+    margin-top: 48px;
+}
+
+.form-footer{
+    margin-bottom: 36px;
+}
+
+body {
+    background-image: url("https://cdn.discordapp.com/attachments/791186052671995917/902870028666408980/image0.jpg");
+    background-size: cover;
+}
+

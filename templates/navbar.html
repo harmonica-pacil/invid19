@@ -16,7 +16,10 @@
           <a class="nav-link" href="/berita/lihatberita">Berita</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Artikel</a>
+          <a class="nav-link" href="{% url 'indexArticle' %}">Artikel</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'lihat-vaksin' %}">Vaksinasi</a>
         </li>
         {% if request.user.is_authenticated %}
         <li class="nav-item">
@@ -26,17 +29,24 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Forum Diskusi</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'data-covid19' %}>Data Covid-19</a>
+        </li>
+        {% if request.user.is_authenticated%}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">
             Menu
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Buat Artikel</a></li>
+            <li><a class="dropdown-item" href="{% url 'addArticle' %}">Buat Artikel</a></li>
+            {% if user.is_superuser  %}
             <li><a class="dropdown-item" href="/berita/tambahberita">Buat Berita</a></li>
-            {% comment %} <li><a class="dropdown-item" href="#"></a></li> {% endcomment %}
+            <li><a class="dropdown-item" href="{% url 'add-vaksin' %}">Buat Vaksinasi</a></li>
+            {% endif %}
           </ul>
         </li>
+        {% endif %}
       </ul>
       {% if request.user.is_authenticated %}
       <a href="{% url 'logout' %}">
