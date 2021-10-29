@@ -5,7 +5,7 @@
     .btn.btn-primary.mb-2{
         min-width:105px;
         position:absolute;
-        bottom:5%;
+        bottom:4%;
         background-color: #7289da;
         border: 0px ;
     }
@@ -18,7 +18,7 @@
         transition-duration: 0.4s;
     }
     .card.post-box{
-        border: 4px solid#547aff;
+        border: 4px solid#5571d4;
     }
     .btn.btn-load{
         background-color: #7289da;
@@ -30,8 +30,8 @@
     .card-text, .accordion-body {
       color: black;
     }
-
 </style>
+
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -58,52 +58,45 @@
       <span class="visually-hidden">Next</span>
     </button>
  </div>
-
     <div style="padding: 32px 100px">
         <h1 style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 45px;">Vaksinasi COVID-19</h1>
         <h3 style="font-family: Arial, Helvetica, sans-serif; font-size: 25px;">Segera daftarkan diri anda untuk menerima vaksinasi demi keselamatan bersama</h3>
         <hr>
-        <h3 style="font-family: Arial, Helvetica, sans-serif ; font-weight: 350; font-size: 25px;">Lihat daftar vaksinasi COVID-19 terkini </h3>
+        <h3 style="font-family: Arial, Helvetica, sans-serif ; font-weight: 350; font-size: 23px;">Lihat daftar vaksinasi COVID-19 terkini </h3>
         <div style="padding: 25px 90px">
           <div class = "row wrapper">
             {% for i in vaksins %}
-           
-            <div class="card post-box" style="width: 18rem; height: 25rem; border-radius:50px; margin: 12px;">
+            <div class="card post-box" style="width: 18rem; height: 24rem; border-radius:50px; margin: 12px;">
                 <div class="card-body">
-                    
                   <h5 class="card-text"> {{ i.lokasi }}, {{ i.kota }}, {{ i.provinsi }}</h5>
-                  <h5 class="card-text"> {{ i.jenis_vaksin }}</h5> 
-                  <p class="card-text"> Tanggal: {{ i.tanggal }}</p> 
                   {% if user.is_authenticated  %}
-                  <p class="card-text"> Jam: {{ i.jam_mulai }} -- {{ i.jam_berakhir }}</p> 
                   <p class="card-text"> Kode Vaksinasi: {{ i.kode}}</p> 
                   {% endif %} 
+                  <p class="card-text">Jenis Vaksin: {{ i.jenis_vaksin }}</p> 
+                  <p class="card-text"> Tanggal: {{ i.tanggal }}</p> 
+                  {% if user.is_authenticated  %}
+                  <p class="card-text"> Jam: {{ i.jam_mulai }} - {{ i.jam_berakhir }}</p> 
+                  {% endif %} 
                   <p class="card-text"> Kuota: {{ i.kuota }}</p> 
-                
-                
                     <div class="row">
-                        <div class="col d-flex justify-content-space-evenly" style = "padding-left: 17px;">
-                            <form action="add-pendaftar" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" id="kode" name="kode" value={{i.kode}}>
-                                <button id = {{i.kode}} type="submit" class="btn btn-primary mb-2" style = border-radius:10px>Daftar</button>
-                    
+                        <div class="col d-flex justify-content-space-evenly" style = "padding-left: 12px;">
+                          {% if user.is_authenticated and user.is_superuser %}
+                          <form action="lihat-individu" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" id="kode" name="kode" value={{i.kode}}>
+                            <button type="submit" class="btn btn-primary mb-2" style = border-radius:10px >Lihat</button>
                             </form>
+                          {% endif %}
                         </div>
                         <div class="col d-flex justify-content-space-evenly">
-                            {% if user.is_authenticated and user.is_superuser %}
-                            <form action="lihat-individu" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" id="kode" name="kode" value={{i.kode}}>
-                                <button type="submit" class="btn btn-primary mb-2" style = border-radius:10px > Lihat </button>
+                            <form action="add-pendaftar" method="POST">
+                              {% csrf_token %}
+                              <input type="hidden" id="kode" name="kode" value={{i.kode}}>
+                              <button id = {{i.kode}} type="submit" class="btn btn-primary mb-2" style = border-radius:10px>Daftar</button>
                             </form>
-                            {% endif %}
                         </div>
                     </div>
-                
                 </div>
-                
-                
             </div>
             <script>
                 var kuota = '{{ i.kuota }}';
@@ -112,7 +105,6 @@
                 }
             
             </script>
-            
             {% endfor %}
           </div>
           <br>
@@ -163,7 +155,6 @@
               </div>
             </div>
           </div>
-        
     </div>
 {% endblock content %}
 {% block js %}
@@ -187,29 +178,20 @@
                     var _html='';
                     var json_data=$.parseJSON(res.vaksins);
                     $.each(json_data,function(index,data){
-                        _html+=`<div class="card post-box" style="width: 18rem; height: 25rem; border-radius:50px; margin: 12px;">
+                        _html+=`<div class="card post-box" style="width: 18rem; height: 24rem; border-radius:50px; margin: 12px;">
                 <div class="card-body">
-                    
                   <h5 class="card-text"> ${ data.fields.lokasi }, ${ data.fields.kota }, ${ data.fields.provinsi }</h5>
-                  <h5 class="card-text"> ${ data.fields.jenis_vaksin }</h5> 
+                  {% if user.is_authenticated  %}
+                  <p class="card-text"> Kode Vaksinasi: ${ data.fields.kode}</p>
+                  {% endif %} 
+                  <p class="card-text">Jenis Vaksin: ${ data.fields.jenis_vaksin }</p> 
                   <p class="card-text"> Tanggal: ${ data.fields.tanggal }</p> 
                   {% if user.is_authenticated  %}
-                  <p class="card-text"> Jam: ${ data.fields.jam_mulai } -- ${ data.fields.jam_berakhir }</p> 
-                  <p class="card-text"> Kode Vaksinasi: ${ data.fields.kode}</p> 
+                  <p class="card-text"> Jam: ${ data.fields.jam_mulai } - ${ data.fields.jam_berakhir }</p> 
                   {% endif %} 
                   <p class="card-text"> Kuota: ${ data.fields.kuota }</p> 
-                
-                
                     <div class="row">
-                        <div class="col d-flex justify-content-space-evenly" style = "padding-left: 17px;">
-                            <form action="add-pendaftar" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" id="kode" name="kode" value= ${data.fields.kode}>
-                                <button id = ${data.fields.kode} type="submit" class="btn btn-primary mb-2" style = border-radius:10px>Daftar</button>
-                    
-                            </form>
-                        </div>
-                        <div class="col d-flex justify-content-space-evenly">
+                        <div class="col d-flex justify-content-space-evenly" style = "padding-left: 12px;">
                             {% if user.is_authenticated and user.is_superuser %}
                             <form action="lihat-individu" method="POST">
                                 {% csrf_token %}
@@ -218,11 +200,15 @@
                             </form>
                             {% endif %}
                         </div>
+                        <div class="col d-flex justify-content-space-evenly">
+                            <form action="add-pendaftar" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" id="kode" name="kode" value= ${data.fields.kode}>
+                                <button id = ${data.fields.kode} type="submit" class="btn btn-primary mb-2" style = border-radius:10px>Daftar</button>
+                            </form>
+                        </div>
                     </div>
-                
                 </div>
-                
-                
             </div>
             `;
                     });

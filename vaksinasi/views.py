@@ -14,7 +14,7 @@ def index(request):
     else:
         vaksins=Vaksin.objects.all()
  
-    paginator=Paginator(vaksins,6)
+    paginator=Paginator(vaksins,9)
     page_number=request.GET.get('page')
     posts_obj=paginator.get_page(page_number)
     return render(request,'index.html',{'vaksins':posts_obj})
@@ -53,7 +53,7 @@ def add_pendaftar(request):
 
 def load_more(request):
     offset=int(request.POST['offset'])
-    limit=6
+    limit=3
     vaksins=Vaksin.objects.all()[offset:limit+offset]
     totalData=Vaksin.objects.count()
     data={}
@@ -62,5 +62,4 @@ def load_more(request):
         'vaksins': vaksins_json,
         'totalResult':totalData
     })
-
 # Load more pagination source https://github.com/codeartisanlab/django-3-crud-application
