@@ -1,16 +1,4 @@
 $(document).ready(() => {
-  const showPage = () => {
-    $('#loader-container').css('display', 'none');
-    $('#root').css('display', 'block');
-  };
-
-  const hidePage = () => {
-    $('#loader-container').css('display', 'flex');
-    $('#root').css('display', 'none');
-  };
-
-  hidePage();
-
   const username = $('#profile-username');
   const intro = $('#profile-intro');
   const fullname = $('#profile-fullname');
@@ -43,8 +31,6 @@ $(document).ready(() => {
         );
       }
       image.attr('alt', res.name);
-
-      showPage();
     },
   });
 });
