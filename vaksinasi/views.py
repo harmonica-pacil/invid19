@@ -13,7 +13,7 @@ def index(request):
         vaksins=Vaksin.objects.filter(title__icontains=q)
     else:
         vaksins=Vaksin.objects.all()
-    # Pagintion
+ 
     paginator=Paginator(vaksins,6)
     page_number=request.GET.get('page')
     posts_obj=paginator.get_page(page_number)
@@ -33,8 +33,8 @@ def add_vaksin(request):
         form = VaksinForm(request.POST)
         if form.is_valid():
             form.save() 
-            return HttpResponseRedirect('/vaksinasi/lihat-vaksin')  # Save data to DB    
-    # if a GET (or any other method) we'll create a blank form
+            return HttpResponseRedirect('/vaksinasi/lihat-vaksin')    
+   
     else:
         form = VaksinForm()
     return render(request, 'form_vaksin.html', {'form': form})
@@ -62,3 +62,5 @@ def load_more(request):
         'vaksins': vaksins_json,
         'totalResult':totalData
     })
+
+# Load more pagination source https://github.com/codeartisanlab/django-3-crud-application
