@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="Beritaform">
+    <div class="judulBerita">
+        <h1>{{isi.judulBerita}}</h1>
+    </div>
+    <table width="100%" style="margin: 0px;">
+        <tr>
+            <td class="text-muted">Ditulis oleh : {{isi.penulis}}</td>
+        </tr>
+        <td style="" class="text-muted">Tanggal Rilis : {{isi.tanggalRilis}}</td>
+    </table>
+    <br>
+    <p style="text-align: justify;">{{isi.isiBerita}}</p>
+    <div class="mb-1">
+    <br>
+    <a href="/berita/lihatberita" class="btn btn-primary">Back</a>
+    </div>
+
+{% endblock content %}
