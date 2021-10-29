@@ -26,7 +26,7 @@
 <div class="artikel-list">
     {% for x in posts %}
     <div class="card my-3 post-box" style="width:18rem; height: 25rem">
-        <img class="card-img-top" src={{x.thumbnail}} alt="Card image">
+        <img class="card-img-top" src={{x.thumbnail}} alt="Card image" style="width:286px; height:200px">
         <header style="padding: 10px 10px">
             <a href="contents/{{x.pk}}" class="font-title">{{x.judulArtikel}}</a>
         </header>
@@ -78,7 +78,7 @@
                             trimmed += "...";
                         }
                         _html+='<div class="card my-3 post-box" style="width:18rem; height: 25rem">\
-                            <img class="card-img-top" src='+data.fields.thumbnail+' alt="Card image">\
+                            <img class="card-img-top" src='+data.fields.thumbnail+' alt="Card image" style="width:286px; height:200px">\
                             <header style="padding: 10px 10px">\
                                 <a href="contents/'+data.pk+'" class="font-title">'+data.fields.judulArtikel+'</a>\
                             </header>\
