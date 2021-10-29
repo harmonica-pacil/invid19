@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from django.shortcuts import render
 from .models import Forum
 from .forms import ForumForm
@@ -7,6 +8,7 @@ from users.models import Profile
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+
 
 def index_json(request):
     forums = Forum.objects.all()
@@ -23,6 +25,7 @@ def index_json(request):
 
 def index(request):
     response = {}
+    print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     return render(request, 'forum_list.html', response)
 
 @login_required(login_url="login")
@@ -33,8 +36,8 @@ def add_forum(request):
         new_forum.creator = Profile.objects.get(user = request.user.id)
         new_forum.creator_username = new_forum.creator.username
         new_forum.creator_image = new_forum.creator.profile_image
-        new_forum.created_at = datetime.now()
-
+        new_forum.created_at = datetime.now().strftime("%A, %d %B %Y, %I:%M %p")
+        
         new_forum.save()
         return HttpResponseRedirect('../')
 

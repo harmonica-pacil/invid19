@@ -5,7 +5,7 @@ class Forum(models.Model):
     title = models.CharField(max_length=50)
     message = models.TextField()
     creator = models.ForeignKey(Profile, on_delete=models.CASCADE, blank = True, null = True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.CharField(max_length=50)
     creator_username = models.CharField(
         max_length=200, null=True, blank=True
     )
