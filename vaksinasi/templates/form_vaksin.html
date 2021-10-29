@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<style>
+  button[type=submit] {
+      color: white;
+      padding: 12px 70px;
+      border: none;
+      margin-top: 30px;
+      margin-left: 30px;
+      border-radius: 7px;
+      cursor: pointer;
+      float: right;
+      background-color: #7289da;
+      
+  }
+  button[type=submit]:hover{
+        background-color: #5365a6;
+  }
+
+</style>
+
+<h1 style="font-family: Arial, Helvetica, sans-serif ; font-weight: 700; font-size: 45px;">Form Vaksinasi</h1>
+<form action = "" method = "POST">
+  {% csrf_token %}
+  <div class="mb-1">
+    <label for="kode" class="form-label">Kode</label>
+    <input type="text" name="kode" class="form-control" id="kode" aria-describedby="emailHelp" value="{{kode}}" placeholder="Char 3 digit">
+  </div>
+  <div class="mb-1">
+    <label for="provinsi" class="form-label">Provinsi</label>
+    <input type="text" name="provinsi" class="form-control" id="provinsi" value={{provinsi}}>
+  </div>
+  <div class="mb-1">
+    <label for="kota" class="form-label">Kota</label>
+    <input type="text" name="kota" class="form-control" id="kota" value="{{kota}}">
+  </div>
+  <div class="mb-1">
+      <label for="lokasi" class="form-label">Lokasi</label>
+      <input type="text" name="lokasi" class="form-control" id="lokasi" value="{{lokasi}}" placeholder="Rumah Sakit Asih, Puskesmas Sukasari, Klinik Ibu">
+      
+  </div>
+  <div class="mb-1">
+      <label for="jenis_vaksin" class="form-label">Jenis Vaksin</label>
+      <input type="text" name="jenis_vaksin" class="form-control" id="jenis_vaksin" value="{{jenis_vaksin}}">
+  </div>
+  <div class="mb-1">
+    <label for="tanggal" class="form-label">Tanggal</label>
+    <input type="text" name="tanggal" class="form-control" id="tanggal" value="{{tanggal}}" placeholder="YYYY/MM/DD">
+  </div>
+  <div class="mb-1">
+    <label for="jam_mulai" class="form-label">Jam Mulai</label>
+    <input type="text" name="jam_mulai" class="form-control" id="jam_mulai" value="{{jam_mulai}}" placeholder ="hh:mm:ss">
+  </div>
+  <div class="mb-1">
+  <label for="jam_berakhir" class="form-label">Jam Berakhir</label>
+  <input type="text" name="jam_berakhir" class="form-control" id="jam_berakhir" value="{{jam_berakhir}}"  placeholder ="hh:mm:ss">
+  </div>  
+  <div class="mb-1">
+    <label for="kuota" class="form-label">Kuota</label>
+    <input type="text" name="kuota" class="form-control" id="kuota" value="{{kuota}}">
+  </div>  
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<form action="{% url 'lihat-vaksin' %}">
+  <button type="submit" class="btn btn-primary">Back</button>
+</form>
+{% endblock content %}
