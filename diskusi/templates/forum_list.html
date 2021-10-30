@@ -10,7 +10,7 @@
 {% block content %}
 
 <div class="container-fluid" id="myBody">
-  <div class="d-flex justify-content-between">
+  <div class="d-flex justify-content-between" id="top">
     <p class="h2">Forum Diskusi</p>
     {% if user.is_authenticated %}
       <button type="button" class="btn btn-success" onclick="create_forum()" id = "create_button">Create Forum</button>
