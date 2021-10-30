@@ -23,6 +23,8 @@ import diskusi.urls as diskusi
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("user/", include("users.urls")),
+    path("berita/", include("berita.urls")),
+    path("vaksinasi/", include("vaksinasi.urls")),
     path("login", user_views.loginUser, name="login"),
     path("logout", user_views.logoutUser, name="logout"),
     path("signup", user_views.signupUser, name="signup"),

@@ -65,6 +65,8 @@ INSTALLED_APPS = [
     "main",
     "diskusi",
     "users.apps.UsersConfig",
+    "berita",
+    "vaksinasi",
     "artikel",
     "dataCovid",
 ]
