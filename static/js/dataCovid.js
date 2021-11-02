@@ -19,36 +19,31 @@ $(document).ready(() => {
                 success: function(result) {
                     var view = $('#target-ajax');
                     view.empty();
-                    for(var i = 0; i < result.length; i++) {
-                        if(view[i] != undefined) {
-                            view.append(
-                                `<h4> Kasus Covid-19 di Provinsi ${result[i]["Provinsi"]} </h2>
-                                <div class = "container-Indonesia-text">
+                    view.append(
+                        `<h4> Kasus Covid-19 di Provinsi ${result["provinsi"]} </h2>
+                        <div class = "container-Indonesia-text">
+                        </div>
+                        <div class = "container-Indonesia-card">
+                            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;border-radius: 8px;">
+                                <div class="card-header">Positif</div>
+                                <div class="card-body">
+                                <p class="card-text">${result["kasusPosi"].toLocaleString()}</p>
                                 </div>
-                                <div class = "container-Indonesia-card">
-                                    <div class="card text-white bg-danger mb-3" style="max-width: 18rem;border-radius: 8px;">
-                                        <div class="card-header">Positif</div>
-                                        <div class="card-body">
-                                        <p class="card-text">${result[i]["Kasus_Posi"].toLocaleString()}</p>
-                                        </div>
-                                    </div>
-                                    <div class="card text-white bg-success mb-3" style="max-width: 18rem;border-radius: 8px;">
-                                        <div class="card-header">Sembuh</div>
-                                        <div class="card-body">
-                                        <p class="card-text">${result[i]["Kasus_Semb"].toLocaleString()}</p>
-                                        </div>
-                                    </div>
-                                    <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;border-radius: 8px;">
-                                        <div class="card-header">Meninggal</div>
-                                        <div class="card-body">
-                                        <p class="card-text">${result[i]["Kasus_Meni"].toLocaleString()}</p>
-                                        </div>
-                                    </div>
-                                </div>`
-                                
-                            )
-                        }
-                    }
+                            </div>
+                            <div class="card text-white bg-success mb-3" style="max-width: 18rem;border-radius: 8px;">
+                                <div class="card-header">Sembuh</div>
+                                <div class="card-body">
+                                <p class="card-text">${result["kasusSemb"].toLocaleString()}</p>
+                                </div>
+                            </div>
+                            <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;border-radius: 8px;">
+                                <div class="card-header">Meninggal</div>
+                                <div class="card-body">
+                                <p class="card-text">${result["kasusMeni"].toLocaleString()}</p>
+                                </div>
+                            </div>
+                        </div>` 
+                    )
                 },
             })
         }

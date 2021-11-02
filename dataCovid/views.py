@@ -31,15 +31,16 @@ def add_krisan(request):
     return render(request, "dataCovid.html", context)
 
 def info_provinsi(request):
-    lst = []
+    lst = {}
     try:
         item = request.GET['q']
     except:
         item = ""
-    response = requests.get('https://api.kawalcorona.com/indonesia/provinsi/').json()
-    for i in response:
-        if(item.lower() in i["attributes"]["Provinsi"].lower()):
-            lst.append(i["attributes"])
+    response = requests.get('https://indonesia-covid-19.mathdro.id/api/provinsi/').json()
+    for i in response["data"]:
+        if(item.lower() == i["provinsi"].lower()):
+            lst = i
     # print(lst)
+    print(response)
 
     return JsonResponse(lst, safe= False)
