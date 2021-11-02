@@ -34,14 +34,10 @@
     padding: 1rem;
   }
 
-  .image_user{
+  /* .image_user{
     padding-right: 30px;
-  }
+  } */
 
-  img{
-    height: 18px;
-    padding-right: 10px;
-  }
 
   .deskripsi{
     padding-top: 10px;
@@ -51,3 +47,9 @@
     margin-top: 17px;
     margin-bottom: 17px;
   }
+
+  #top{
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
