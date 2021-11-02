@@ -1,13 +1,15 @@
 $(document).ready(() => {
-    $.ajax({
-        url : "https://covid19.mathdro.id/api/countries/indonesia",
-        success:function(result) {
-            document.getElementById("kasus-positif").textContent = result["confirmed"]["value"].toLocaleString();
-            document.getElementById("kasus-sembuh").textContent = result["recovered"]["value"].toLocaleString();
-            document.getElementById("kasus-meninggal").textContent = result["deaths"]["value"].toLocaleString();
-            console.log(result) ;
-        }
-    })
+  $.ajax({
+    url: 'https://apicovid19indonesia-v2.vercel.app/api/indonesia',
+    success: function (result) {
+      document.getElementById('kasus-positif').textContent =
+        result['positif'].toLocaleString();
+      document.getElementById('kasus-sembuh').textContent =
+        result['sembuh'].toLocaleString();
+      document.getElementById('kasus-meninggal').textContent =
+        result['meninggal'].toLocaleString();
+    },
+  });
 
     $("#search").keypress(function(e) {
         if(e.which == 13) {

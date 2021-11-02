@@ -12,10 +12,14 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Krisan',
+            name='Artikel',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text_krisan', models.TextField()),
+                ('judulArtikel', models.CharField(max_length=30)),
+                ('tglRilis', models.DateField(auto_now=True)),
+                ('peninjau', models.CharField(max_length=20)),
+                ('isiArtikel', models.TextField()),
+                ('thumbnail', models.CharField(max_length=500)),
             ],
         ),
     ]

@@ -1,0 +1,117 @@
+{% extends "base.html"%}
+{% load static %}
+{% load cloudinary %}
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/comment_list.css' %}">
+{% endblock meta %}
+
+{% block content %}
+
+
+
+
+<!-- edited soon -->
+
+
+<div class="container-fluid">
+    <div class="container-fluid" id="myBody2">
+        <p class="h2">{{forum.title}} </p>
+        <div class="vstack gap-2" id="list2">
+            <div class="card" >
+                <div class="card-body">
+                    <p class="h4">{{forum.message}}</p>
+                    <div class="user">
+                        
+                        <p class="h6 text-muted">{{forum.creator_username}} - {{forum.created_at }}</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+
+    
+    <div class="container-fluid" id="myBody" style="padding-bottom: 30px;">
+        <p class="h6">Replies:</p>
+        <div class="vstack gap-2" id="comment_list">
+            <div class="card">
+                <div class="card-body">
+                    <p class="h4">{{comment.message}}</p>
+                    <div class="user">
+                        <div class="image_user">
+                            <img src="https://res.cloudinary.com/da66vxlpb/image/upload/v1/images/media/profiles/default-user_pfzkxt"
+                                class="rounded float-start" alt="">
+                        </div>
+                        <p class="h6 text-muted">{{forum.creator_username}} - {{forum.created_at }}</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+    <div class="container" style=" padding-top: 100px; padding-bottom:30px ; " id="comment_form">
+        <div class="form-group">
+            <form action="" method="POST">
+                {%csrf_token%}
+
+                <!-- edited soon -->
+                {%load widget_tweaks %}
+                {% for field in form.visible_fields %}
+                <div class="form-group">
+                    Posting Komentar
+                    {% render_field field class="form-control" %}
+
+                </div>
+                {% endfor %}
+
+
+                <!-- {% for field in form %}
+                <fieldset class="control-group">
+                    <label class="control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                    <div class="controls">
+                        {{ field }} {{forloop.counter}}
+                        <p class="help-text">{{ field.help_text }} </p>
+                    </div>
+
+                    <button class="btn btn-primary"> Submit </button>
+
+                </fieldset>
+                {% endfor %} -->
+                <button class="btn btn-primary" id="submit"> Submit </button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
+
+{% block js %}
+
+{% if not user.is_authenticated %}
+<script src="{% static 'js/comment_form.js' %}"></script>
+{% endif %}
+
+<script src="{% static 'js/comment_list.js' %}"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+{% endblock js %}
