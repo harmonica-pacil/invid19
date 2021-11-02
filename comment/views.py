@@ -9,6 +9,11 @@ from .forms import CommentForm
 from django.http.response import HttpResponseRedirect
 from django.http.response import HttpResponse
 from django.core import serializers
+# There is no local timezone support, you need to know your timezone
+import pytz
+utc = pytz.timezone('UTC')
+localtz = pytz.timezone('Asia/Jakarta')
+
 
 
 
@@ -35,29 +40,21 @@ def index(request, id):
             add_comment.id_forum = add_comment.forum_creator.pk
             add_comment.comment_creator_username = add_comment.comment_creator.username
             add_comment.creator_image = add_comment.comment_creator.profile_image            
-            add_comment.created_at = datetime.now().strftime("%A, %d %B %Y, %I:%M %p")
+            
+            time_stamp = datetime.utcnow()
+            utctime = utc.localize(time_stamp)
+            time_stamp_jakarta = localtz.normalize(utctime.astimezone(localtz))
+            time_stamp_jakarta =time_stamp_jakarta.strftime("%A, %d %B %Y, %I:%M %p")
+            add_comment.created_at = time_stamp_jakarta
             add_comment.save()
             
-
-            # edit soon
-            # print(add_comment.comment_creator.id)
-            # print(add_comment.forum_creator.id)
-            # data = serializers.serialize('json', Comment.objects.all())
-            # return HttpResponse(data, content_type="application/json")
-            # return HttpResponseRedirect('comment:index',request)
             return HttpResponseRedirect(request.path_info)
     response['form'] = form
     Comment.forum_creator = Forum.objects.get(pk = id)
     
-    print('TESCREATOR',Comment.forum_creator )
+   
     
-    # tes = Comment.forum_creator = Forum.objects.get(pk = id)
-    # print("TES FORUM:",tes.id)
-    # Comment.comment_creator = Profile.objects.get(user = request.user.id)   
-    # a = Comment.comment_creator 
-    # print("comment_reator adalah:",a)
-
-    # print("TES", Comment.forum_creator,  "comment:",Comment.comment_creator)
+   
     response['forum'] = Comment.forum_creator
     print("tes",response)
 
@@ -65,29 +62,10 @@ def index(request, id):
 
     return render(request,  "comment_list.html", response)
 
-# def json_api(request):
-
-#     data = serializers.serialize('json', Comment.objects.all())
-#     return HttpResponse(data, content_type="application/json")
-
-
 
 
 def json_api(request):
     comments = Comment.objects.all()
-   
-
-   
-
-        
-        # comment.save()
-        # print(comment.comment_creator)
-
-    for comment in comments:
-        print(comment.id_forum)
-
-    response = {'comments' : comments.values()}
-    print(response)
 
     data = serializers.serialize('json', Comment.objects.all())
     return HttpResponse(data, content_type="application/json")
