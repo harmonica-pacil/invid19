@@ -38,7 +38,7 @@ def info_provinsi(request):
         item = ""
     response = requests.get('https://indonesia-covid-19.mathdro.id/api/provinsi/').json()
     for i in response["data"]:
-        if(item.lower() == i["provinsi"].lower()):
+        if(item.lower() in i["provinsi"].lower()):
             lst = i
     # print(lst)
     print(response)
