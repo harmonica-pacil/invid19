@@ -5,14 +5,16 @@ $(function () {
 
     $.ajax({
         type: 'GET',
-        url: 'https://invid19.herokuapp.com/comment/json/',
+        url: '/comment/json',
         success: function (data) {
            
 
            //grep id from last character url
             var $id = $(location).attr('href').substr(-1);
+            console.log("dataadalah:"+ data)
            
-            $.each(data, function (ind, dict) {  
+            $.each(data, function (ind, dict) {
+                
                 var comment = dict['fields'];
               
                 //check data have equals id 
