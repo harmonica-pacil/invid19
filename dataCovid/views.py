@@ -41,6 +41,5 @@ def info_provinsi(request):
         if(item.lower() in i["provinsi"].lower()):
             lst = i
     # print(lst)
-    print(response)
 
     return JsonResponse(lst, safe= False)
