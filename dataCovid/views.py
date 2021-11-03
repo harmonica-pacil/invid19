@@ -1,12 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.http import response
-# from django.http.response import HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from dataCovid.forms import KrisanForm
 from dataCovid.models import Krisan
 import json
 import requests
+from django.core import serializers
 
 
 # Create your views here.
@@ -42,4 +43,8 @@ def info_provinsi(request):
             lst = i
     # print(lst)
 
-    return JsonResponse(lst, safe= False)
+    return JsonResponse(lst, safe= False, status = 200)
+    # data = serializers.serialize('json', [lst,])
+    # struct = json.loads(data)
+    # data = json.dumps(struct[0])
+    # return HttpResponse(data, content_type="application/json")
