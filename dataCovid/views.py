@@ -30,21 +30,3 @@ def add_krisan(request):
     # context['data'] = data
     context['form']= form
     return render(request, "dataCovid.html", context)
-
-def info_provinsi(request):
-    lst = {}
-    try:
-        item = request.GET['q']
-    except:
-        item = ""
-    response = requests.get('https://indonesia-covid-19.mathdro.id/api/provinsi/').json()
-    for i in response["data"]:
-        if(item.lower() in i["provinsi"].lower()):
-            lst = i
-    # print(lst)
-
-    return JsonResponse(lst, safe= False, status = 200)
-    # data = serializers.serialize('json', [lst,])
-    # struct = json.loads(data)
-    # data = json.dumps(struct[0])
-    # return HttpResponse(data, content_type="application/json")
