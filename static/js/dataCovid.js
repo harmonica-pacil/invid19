@@ -16,9 +16,20 @@ $(document).ready(() => {
             var q = e.currentTarget.value.toUpperCase();
             console.log(q)
             $.ajax({
-                url: "covid19-provinsi?q=" + q,
+                url: "https://indonesia-covid-19.mathdro.id/api/provinsi/" ,
                 async: true,
-                success: function(result) {
+      
+
+                success: function(result_) {
+
+                  var result;
+
+                  $.each(result_.data, function (ind,dict) {
+                    if( dict.provinsi.toLowerCase() === q.toLowerCase()) result = dict;              
+                  });
+                  console.log(result)
+                  console.log(result_)
+
                     var view = $('#target-ajax');
                     view.empty();
                     view.append(

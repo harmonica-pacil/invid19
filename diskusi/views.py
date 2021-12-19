@@ -8,8 +8,9 @@ from users.models import Profile
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from django.views.decorators.csrf import csrf_exempt
 
-
+@csrf_exempt
 def index_json(request):
     forums = Forum.objects.all()
 

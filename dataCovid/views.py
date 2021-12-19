@@ -40,7 +40,7 @@ def info_provinsi(request):
     for i in response["data"]:
         if(item.lower() in i["provinsi"].lower()):
             lst = i
-    # print(lst)
-    print(response)
+    print(lst)
+    # print(response)
 
     return JsonResponse(lst, safe= False)

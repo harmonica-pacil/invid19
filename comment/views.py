@@ -2,6 +2,8 @@
 from datetime import datetime
 from django.http import response
 from django.shortcuts import render,redirect
+from django.views.decorators.csrf import csrf_exempt
+
 
 from users.models import Profile
 from .models import Comment,Forum
@@ -63,7 +65,7 @@ def index(request, id):
     return render(request,  "comment_list.html", response)
 
 
-
+@csrf_exempt
 def json_api(request):
     comments = Comment.objects.all()
 
