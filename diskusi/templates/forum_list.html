@@ -1,0 +1,51 @@
+
+
+{% extends "base.html"%}
+{% load static %}
+{% load cloudinary %}
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/forum_list.css' %}">
+{% endblock meta %}
+
+{% block content %}
+
+<div class="container-fluid" id="myBody">
+  <div class="d-flex justify-content-between" id="top">
+    <p class="h2">Forum Diskusi</p>
+    {% if user.is_authenticated %}
+      <button type="button" class="btn btn-success" onclick="create_forum()" id = "create_button">Create Forum</button>
+    {% endif %}
+  </div>
+  
+  <div class="vstack gap-2" id="list">
+    {% comment %} 
+    <div class="card" id = '-1'>
+      <div class="card-body">
+        <p class="h4">Title</p>
+        <div class="user">
+          <div class="d-flex flex-column">
+            <div class="container">
+              <div class = "image_user">
+                <img src="https://res.cloudinary.com/da66vxlpb/image/upload/v1/images/media/profiles/default-user_pfzkxt" class="rounded float-start" alt="">
+              </div>
+              <p class="h6 text-muted">nama user - tanggal</p>
+            </div>
+            <div class="container">
+              <p class="deskripsi">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore cum officiis dolorum, dicta doloremque explicabo obcaecati veniam quo nesciunt sit expedita ad, nisi commodi, maiores deleniti sequi reiciendis eius rerum.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endcomment %}
+  </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+<script src="{% static 'js/forum_list.js' %}"></script>
+{% endblock js %}

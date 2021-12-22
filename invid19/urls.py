@@ -18,10 +18,14 @@ from django.urls import include, path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
+import diskusi.urls as diskusi
+import comment.urls as comment
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("user/", include("users.urls")),
+    path("berita/", include("berita.urls")),
+    path("vaksinasi/", include("vaksinasi.urls")),
     path("login", user_views.loginUser, name="login"),
     path("logout", user_views.logoutUser, name="logout"),
     path("signup", user_views.signupUser, name="signup"),
@@ -31,6 +35,8 @@ urlpatterns = [
         name="activate",
     ),
     path("", include("main.urls")),
+    path("diskusi/", include(diskusi)),
+    path("comment/", include(comment)),
     path("artikel/",include("artikel.urls")),
     path("data-covid/", include("dataCovid.urls")),
 ]

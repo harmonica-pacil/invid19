@@ -40,8 +40,8 @@ PRODUCTION = os.getenv("DATABASE_URL") is not None
 # SECURITY WARNING: don't run with debug turned on in production!
 # If you want to enable debugging on Heroku for learning purposes,
 # set this to True.
-DEBUG = not PRODUCTION
-# DEBUG = True
+# DEBUG = not PRODUCTION
+DEBUG = True
 
 HEROKU_APP_NAME = os.getenv("HEROKU_APP_NAME", "")
 
@@ -64,9 +64,16 @@ INSTALLED_APPS = [
     "cloudinary",
     "cloudinary_storage",
     "main",
+    "diskusi",
     "users.apps.UsersConfig",
+    "comment",
+    'widget_tweaks',
+    "berita",
+    "vaksinasi",
     "artikel",
     "dataCovid",
+    "corsheaders",
+
 ]
 
 MIDDLEWARE = [
@@ -79,6 +86,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -103,10 +111,14 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+		       
             ],
         },
     },
 ]
+
+# allow access for all domains
+CORS_ORIGIN_ALLOW_ALL = True
 
 WSGI_APPLICATION = "invid19.wsgi.application"
 
