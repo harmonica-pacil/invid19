@@ -48,7 +48,7 @@ HEROKU_APP_NAME = os.getenv("HEROKU_APP_NAME", "")
 ALLOWED_HOSTS = [f"{HEROKU_APP_NAME}.herokuapp.com"]
 
 if not PRODUCTION:
-    ALLOWED_HOSTS += [".localhost", "127.0.0.1", "[::1]"]
+    ALLOWED_HOSTS += [".localhost", "127.0.0.1", "[::1]","10.0.2.2"]
 
 
 # Application definition
@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
     "cloudinary",
     "cloudinary_storage",
     "main",
@@ -69,15 +70,19 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_HEADERS = ["*"]
 
 # force application to use https for all requests.
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
