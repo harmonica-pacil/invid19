@@ -70,7 +70,8 @@ INSTALLED_APPS = [
     "comment",
     "berita",
     "vaksinasi",
-    
+    "artikel",
+    "dataCovid",
 ]
 
 MIDDLEWARE = [
