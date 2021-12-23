@@ -97,8 +97,6 @@
 
                     $(".artikel-list").append(_html);
                     var _countTotal =$(".post-box").length;
-                    console.log(_countTotal);
-                    console.log(res.totalResult);
                     if(_countTotal==res.totalResult){
                         $('#loadMoreBtn').remove();
                     }else{

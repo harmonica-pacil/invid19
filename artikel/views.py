@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from .models import Artikel
 from .forms import ArtikelForm
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.http import JsonResponse
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
 import json
 
 def index(request):
@@ -67,3 +68,19 @@ def add_artikel(request):
     
     response = {'form':form}
     return render(request,'artikel_form.html',response)
+
+def search_flutter(request):
+    if 'article' in request.GET:
+        article = request.GET.get('article')
+        qs = Artikel.objects.filter(judulArtikel__icontains=article)
+    else:
+        qs = Artikel.objects.all()
+    data = serializers.serialize('json', qs)
+    return HttpResponse(data, content_type = 'application/json')
+
+@csrf_exempt
+def add_flutter(request):
+    body = request.body.decode('utf-8')
+    data = json.loads(body)
+    artikel_baru = Artikel(**data)
+    artikel_baru.save()
