@@ -12,7 +12,7 @@ def index(request):
         q=request.GET['q']
         vaksins=Vaksin.objects.filter(title__icontains=q)
     else:
-        vaksins=Vaksin.objects.all()
+        vaksins=Vaksin.objects.order_by('tanggal')
  
     paginator=Paginator(vaksins,6)
     page_number=request.GET.get('page')
@@ -54,7 +54,7 @@ def add_pendaftar(request):
 def load(request):
     offset=int(request.POST['offset'])
     limit=3
-    vaksins=Vaksin.objects.all()[offset:limit+offset]
+    vaksins=Vaksin.objects.order_by('tanggal')[offset:limit+offset]
     totalData=Vaksin.objects.count()
     data={}
     vaksins_json=serializers.serialize('json',vaksins)
