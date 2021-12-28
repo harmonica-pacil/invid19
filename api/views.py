@@ -51,5 +51,7 @@ class GetUserView(APIView):
         if username:
             user = User.objects.get(username=username)
             serializer = UserSerializer(user)
-            return Response(serializer.data)
+            res = serializer.data
+            res["userId"] = user.id
+            return Response(res)
         return Response({"error": True, "error_msg": "username is required"})
