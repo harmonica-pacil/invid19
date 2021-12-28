@@ -4,22 +4,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.models import User
+from users.models import Profile
+from django.core import serializers
+from django.http import HttpResponse
+
 
 
 class UserRecordView(APIView):
-    """
-    API View to create or get a list of all the registered
-    users. GET request returns the registered users whereas
-    a POST request allows to create a new user.
-    """
-
     permission_classes = [AllowAny]
-
-    # def get(self, request, format=None):
-    #     print(request.data)
-    #     users = User.objects.all()
-    #     serializer = UserSerializer(users, many=True)
-    #     return Response(serializer.data)
 
     def post(self, request):
         print(request.data)
@@ -37,12 +29,6 @@ class UserRecordView(APIView):
 
 
 class GetUserView(APIView):
-    """
-    API View to create or get a list of all the registered
-    users. GET request returns the registered users whereas
-    a POST request allows to create a new user.
-    """
-
     permission_classes = [IsAuthenticated]
 
     def post(self, request, format=None):
@@ -54,4 +40,35 @@ class GetUserView(APIView):
             res = serializer.data
             res["userId"] = user.id
             return Response(res)
+        return Response({"error": True, "error_msg": "username is required"})
+
+
+class GetProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, format=None):
+
+        username = request.data["username"]
+        if username:
+            profile = Profile.objects.get(user__username=username)
+            data = serializers.serialize("json", [profile])
+
+            return HttpResponse(data, content_type="application/json")
+        return Response({"error": True, "error_msg": "username is required"})
+
+
+class UpdateProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, format=None):
+        username = request.data["username"]
+        if username:
+            Profile.objects.filter(user__username=username).update(
+                name=request.data["name"],
+                email=request.data["email"],
+                address=request.data["address"],
+                bio=request.data["bio"],
+                short_intro=request.data["short_intro"],
+            )
+            return Response({"success": True})
         return Response({"error": True, "error_msg": "username is required"})
