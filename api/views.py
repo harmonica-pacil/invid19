@@ -45,8 +45,8 @@ class GetUserView(APIView):
 
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, format=None):
-        print(request.data)
+    def post(self, request, format=None):
+
         username = request.data["username"]
         if username:
             user = User.objects.get(username=username)
