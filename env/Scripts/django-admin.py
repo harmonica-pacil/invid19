@@ -1,4 +1,4 @@
-#!D:\Projects\invid19\env\Scripts\python.exe
+#!d:\kuliah\semester3\pbp\tk\invid19\env\scripts\python.exe
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
