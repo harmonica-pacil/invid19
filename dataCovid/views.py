@@ -42,3 +42,4 @@ def add_krisan_flutter(request):
     return JsonResponse({
         "success": "Kritik dan saran berhasil terkirim.",
     })
+    # return HttpResponse({"success": "Kritik dan saran berhasil terkirim.",}, content_type = "application/json")
