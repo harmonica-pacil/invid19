@@ -48,7 +48,7 @@ HEROKU_APP_NAME = os.getenv("HEROKU_APP_NAME", "")
 ALLOWED_HOSTS = [f"{HEROKU_APP_NAME}.herokuapp.com"]
 
 if not PRODUCTION:
-    ALLOWED_HOSTS += [".localhost", "127.0.0.1", "[::1]","10.0.2.2"]
+    ALLOWED_HOSTS += [".localhost", "127.0.0.1", "[::1]", "10.0.2.2"]
 
 
 # Application definition
@@ -67,11 +67,13 @@ INSTALLED_APPS = [
     "diskusi",
     "users.apps.UsersConfig",
     "comment",
-    'widget_tweaks',
+    "widget_tweaks",
     "berita",
     "vaksinasi",
     "artikel",
     "dataCovid",
+    "rest_framework",
+    "rest_framework.authtoken",
 ]
 
 MIDDLEWARE = [
@@ -108,7 +110,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-		       
             ],
         },
     },
@@ -136,6 +137,15 @@ if PRODUCTION:
         conn_max_age=600, ssl_require=True
     )
 
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

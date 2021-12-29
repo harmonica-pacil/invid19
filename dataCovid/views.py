@@ -7,26 +7,39 @@ from dataCovid.forms import KrisanForm
 from dataCovid.models import Krisan
 import json
 import requests
+from django.views.decorators.csrf import csrf_exempt
+
 from django.core import serializers
 
 
-# Create your views here.
+
 
 
 @login_required(login_url="login")
 def add_krisan(request):
     context ={}
   
-    # create object of form
+   
     form = KrisanForm(request.POST or None, request.FILES or None)
       
-    # check if form data is valid
+   
 
     if form.is_valid():
-        # save the form data to model
+    
         form.save()
         return redirect("/data-covid/")
-    # data = Krisan.objects.all()
-    # context['data'] = data
+  
     context['form']= form
     return render(request, "dataCovid.html", context)
+
+
+@csrf_exempt
+def add_krisan_flutter(request):
+    body_unicode = request.body.decode('utf-8')
+    data = json.loads(body_unicode)
+    new_krisan = Krisan(**data)
+    new_krisan.save()
+    return JsonResponse({
+        "success": "Kritik dan saran berhasil terkirim.",
+    })
+    # return HttpResponse({"success": "Kritik dan saran berhasil terkirim.",}, content_type = "application/json")
