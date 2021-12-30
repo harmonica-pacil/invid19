@@ -26,7 +26,7 @@ def index_json(request):
         q=request.GET['q']
         vaksins=Vaksin.objects.filter(title__icontains=q)
     else:
-        vaksins=Vaksin.objects.order_by('tanggal')
+        vaksins= Vaksin.objects.filter(kuota__gt=0)
     data = serializers.serialize('json', vaksins)
     return HttpResponse(data, content_type="application/json")
 
@@ -44,8 +44,7 @@ def add_vaksin(request):
         form = VaksinForm(request.POST)
         if form.is_valid():
             form.save() 
-            return HttpResponseRedirect('/vaksinasi/lihat-vaksin')    
-   
+            return HttpResponseRedirect('/vaksinasi/')    
     else:
         form = VaksinForm()
     return render(request, 'form_vaksin.html', {'form': form})
@@ -57,61 +56,45 @@ def add_pendaftar(request):
         if form.is_valid():
             form.save() 
             Vaksin.objects.get(kode = form.instance.kode).add_pendaftar()
-            return HttpResponseRedirect('/vaksinasi/lihat-vaksin') 
+            return HttpResponseRedirect('/vaksinasi/') 
     else:
         form = PendaftarForm()
     return render(request, 'form_daftar.html', {'form': request.POST['kode']})
 
 @csrf_exempt
 def add_pendaftar_flutter(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        kode = data["kode"]
-        NIK = data["NIK"]
-        nama_lengkap = data["nama_lengkap"]
+    body_unicode = request.body.decode('utf-8')
+    data = json.loads(body_unicode)
+    pendaftar = Pendaftar(**data)
 
-        form = PendaftarForm(
-            kode = kode,
-            NIK = NIK,
-            nama_lengkap = nama_lengkap
-        )
-        
-        form.save()
-
-        return JsonResponse({"status": "success"}, status=200)
+    try:
+        pendaftar.save()
+    except:
+        return JsonResponse({
+        "success": "Terdapat Error (NIK telah terdaftar, format input tidak sesuai, dll)"
+    })
     else:
-        return JsonResponse({"status": "error"}, status=401)
-
+        Vaksin.objects.get(kode = data['kode']).add_pendaftar()
+        return JsonResponse({
+        "success": "Selamat! Anda Berhasil Mendaftar",
+    })
+    
 @csrf_exempt
 def add_vaksin_flutter(request):
-    if request.method == 'POST':
-        kode = data["kode"]
-        kota = data["kota"]
-        provinsi = data["provinsi"]
-        lokasi = data["lokasi"]
-        jenis_vaksin = data["jenis_vaksin"]
-        tanggal = data["tanggal"]
-        jam_mulai = data["jam_mulai"]
-        jam_berakhir = data["jam_berakhir"]
-        kuota = data["kuota"]
-
-        form = VaksinForm(
-            kode = kode,
-            kota = kota,
-            provinsi = provinsi,
-            lokasi = lokasi,
-            jenis_vaksin = jenis_vaksin,
-            tanggal = tanggal,
-            jam_mulai = jam_mulai,
-            jam_berakhir = jam_berakhir,
-            kuota = kuota
-        )
-        
-        form.save()
-
-        return JsonResponse({"status": "success"}, status=200)
+    body_unicode = request.body.decode('utf-8')
+    data = json.loads(body_unicode)
+    vaksin = Vaksin(**data)
+    try:
+        vaksin.save()
+    except:
+        print("WORNG")
+        return JsonResponse({
+        "success": "Terdapat Error (Kode Vaksin telah terdaftar, format input tidak sesuai, dll)",
+    })
     else:
-        return JsonResponse({"status": "error"}, status=401)
+        return JsonResponse({
+        "success": "Jadwal Vaksinasi Berhasil Didaftarkan",
+    })
 
 
 def load(request):
