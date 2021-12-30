@@ -20,6 +20,8 @@ from django.conf.urls.static import static
 from users import views as user_views
 import diskusi.urls as diskusi
 import comment.urls as comment
+from rest_framework.authtoken import views
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -37,8 +39,10 @@ urlpatterns = [
     path("", include("main.urls")),
     path("diskusi/", include(diskusi)),
     path("comment/", include(comment)),
-    path("artikel/",include("artikel.urls")),
+    path("artikel/", include("artikel.urls")),
     path("data-covid/", include("dataCovid.urls")),
+    path("api/", include("api.urls", namespace="api")),
+    path("api-token-auth/", views.obtain_auth_token, name="api-token-auth"),
 ]
 
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
