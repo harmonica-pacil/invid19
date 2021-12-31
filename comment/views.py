@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from users.models import Profile
 from .models import Comment,Forum
 from .forms import CommentForm
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseNotFound, HttpResponseRedirect
 from django.http.response import HttpResponse
 from django.core import serializers
 # There is no local timezone support, you need to know your timezone
@@ -71,3 +71,19 @@ def json_api(request):
 
     data = serializers.serialize('json', Comment.objects.all())
     return HttpResponse(data, content_type="application/json")
+
+
+@csrf_exempt
+def flutter_add(request):
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.creator = Profile.objects.get(user = request.POST['user'])
+        comment.comment_creator_username = comment.creator.username
+        comment.creator_image = comment.creator.profile_image
+        comment.created_at = datetime.now().strftime("%A, %d %B %Y, %I:%M %p")
+        
+        comment.save()
+        return HttpResponseRedirect('../')
+
+    return HttpResponseNotFound("Page not available")   
