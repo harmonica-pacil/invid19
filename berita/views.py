@@ -8,6 +8,7 @@ from django.core import serializers
 import json
 from django.http import JsonResponse
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request):
@@ -17,6 +18,11 @@ def index(request):
     page_number=request.GET.get('page')
     posts_obj=paginator.get_page(page_number)
     return render(request,'beritalist.html',{'posts':posts_obj})
+
+def index_json(request):
+    posts=Berita.objects.all()
+    data = serializers.serialize('json', posts)
+    return HttpResponse(data, content_type="application/json")
 
 def detailberita (request,id):
     posts=Berita.objects.all().get(id=id)
@@ -34,6 +40,28 @@ def buat_Berita(request):
 
     response = {'isiform':form}
     return render(request, "formberita.html", response)
+
+@csrf_exempt
+# def buat_berita_flutter(request):
+#     if request.method == 'POST':
+#         body = request.body.decode('utf-8')
+#         data = json.loads(body)
+#         beritabaru = Berita(**data)
+#         beritabaru.save()
+
+def buat_berita_flutter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        judulBerita = data["judulBerita"]
+        tanggalRilis = data["tanggalRilis"]
+        penulis = data["penulis"]
+        spoiler = data["spoiler"]
+        isiBerita = data["isiBerita"]
+        beritabaru = Berita(**data)
+        beritabaru.save()
+        return JsonResponse({"status": "success"}, status = 200)
+    else:
+        return JsonResponse({"status": "error"}, status = 401)
 
 # Load More
 # source : https://github.com/codeartisanlab/django-3-crud-application
