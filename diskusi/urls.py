@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, add_forum, index_json
+from .views import index, add_forum, index_json, add_api_forum
 from comment.views import index as index_comment
 
 urlpatterns = [
