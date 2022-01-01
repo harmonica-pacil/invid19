@@ -78,12 +78,17 @@ def flutter_add(request):
     form = CommentForm(request.POST)
     if form.is_valid():
         comment = form.save(commit=False)
-        comment.creator = Profile.objects.get(user = request.POST['user'])
-        comment.comment_creator_username = comment.creator.username
+        print(request.POST)
+        print(Profile.objects.all())
+        comment.comment_creator = Profile.objects.get(user = request.POST['user'])
+        comment.id_forum = request.POST['id'] 
+        comment.comment_creator_username = comment.comment_creator.username
         comment.creator_image = comment.creator.profile_image
         comment.created_at = datetime.now().strftime("%A, %d %B %Y, %I:%M %p")
+        # print(comment.message)
         
         comment.save()
+        print
         return HttpResponseRedirect('../')
 
     return HttpResponseNotFound("Page not available")   
