@@ -83,7 +83,7 @@ def flutter_add(request):
         comment.comment_creator = Profile.objects.get(user = request.POST['user'])
         comment.id_forum = request.POST['id'] 
         comment.comment_creator_username = comment.comment_creator.username
-        comment.creator_image = comment.creator.profile_image
+        comment.creator_image = comment.comment_creator.profile_image
         comment.created_at = datetime.now().strftime("%A, %d %B %Y, %I:%M %p")
         # print(comment.message)
         
